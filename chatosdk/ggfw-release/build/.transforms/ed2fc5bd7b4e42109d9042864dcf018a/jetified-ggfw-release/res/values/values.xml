@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="form_empty">Form cannot be empty</string>
+    <string name="txt_NoConnection">No Internet Network</string>
+    <string name="txt_auth_error" translatable="false">Authentication is in trouble</string>
+    <string name="txt_check_connection">Periksa koneksi internet Anda</string>
+    <string name="txt_data_error">Data cannot be displayed</string>
+    <string name="txt_network_error">Network is in trouble</string>
+    <string name="txt_server_error">Server is not connected</string>
+    <string name="txt_server_time_out">Network responds too long</string>
+</resources>

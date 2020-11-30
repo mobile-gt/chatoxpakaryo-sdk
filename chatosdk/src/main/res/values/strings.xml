@@ -1,0 +1,44 @@
+<resources>
+    <!--    <string name="app_name">ChatoSDK</string>-->
+
+    <string name="title_chat" translatable="false">Chato</string>
+    <string name="title_chat_obrolan" translatable="false">OBROLAN</string>
+    <string name="label_copiedchat" translatable="false">Pesan disalin</string>
+
+
+    <string name="emoji_photo" translatable="false">&#128247;</string>
+    <string name="emoji_video" translatable="false">&#128249;</string>
+    <string name="emoji_file" translatable="false">&#128196;</string>
+
+    <string name="ux_titlefromlogin" translatable="false">Masukan username dan password</string>
+    <string name="ux_titleusertoken" translatable="false">Masukan kode perusahaan Anda</string>
+
+    <string name="nav_menu_home" translatable="false">Home</string>
+    <string name="nav_menu_chat" translatable="false">Chat</string>
+    <string name="nav_menu_notif" translatable="false">Notification</string>
+    <string name="nav_menu_profile" translatable="false">Profile</string>
+
+    <string name="appbar_scrolling_view_behavior" translatable="false">com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior</string>
+
+
+    <string name="title_chat_grup" translatable="false">GRUP</string>
+    <string name="button_tryagain" translatable="false">Coba Lagi</string>
+    <string name="label_forwarded" translatable="false">Pesan Terusan</string>
+
+
+    <string name="helper_noconversationstart" translatable="false">Klik disini untuk memulai obrolan baru</string>
+    <string name="helper_noconversation" translatable="false">Tidak ada pesan</string>
+    <string name="helper_noconnection" translatable="false">Periksa kembali koneksi internet atau wifi anda dan silahkan coba lagi</string>
+    <string name="helper_servererror" translatable="false">Telah terjadi kesalahan pada sistem. Silahkan coba lagi</string>
+    <string name="helper_kontenbersama" translatable="false">Tidak ada konten bersama</string>
+    <string name="helper_pesanberbintang" translatable="false">Tidak ada pesan berbintang</string>
+    <string name="helper_startconversation" translatable="false">Belum ada obrolan</string>
+    <string name="helper_nodata" translatable="false">Maaf, data tidak tersedia</string>
+    <string name="helper_loading" translatable="false">Sedang memuat...</string>
+    <string name="helper_error_server" translatable="false">Maaf, sepertinya Server sedang bermasalah</string>
+
+    <string name="menu_title_search" translatable="false">Cari</string>
+    <string name="menu_title_attachment" translatable="false">Lampiran</string>
+
+    <string name="chat_group_succes_add" translatable="false">Berhasil membuat grup baru</string>
+</resources>
