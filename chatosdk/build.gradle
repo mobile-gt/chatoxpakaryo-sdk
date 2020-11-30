@@ -220,8 +220,6 @@ dependencies {
 //    imlementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
 //    implementation 'io.pristine:libjingle:9127@aar'
 //    implementation files('libs/ggfw-release.aar', 'libs/ggfw-ui.aar')
-    implementation project(":chatosdk:ggfw-release")
-    implementation project(":chatosdk:ggfw-ui-release")
     implementation files('libs/jsoup-1.13.1.jar')
 //    implementation files('libs/chato-emojicon.aar')
 
@@ -277,6 +275,8 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation project(':chatosdk:chato-emoticon')
     implementation project(':chatosdk:chato-widget')
+    implementation project(":chatosdk:ggfw")
+    implementation project(":chatosdk:ggfw-ui")
 
     //    implementation 'org.apache.commons:commons-collections4:4.4'
 //    implementation 'commons-codec:commons-codec:1.9@jar'
