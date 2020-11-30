@@ -104,10 +104,10 @@ android {
             }
             makeAConstant("app_name", "Chato SDK")
             makeAConstant("application_name", "Chato")
-//            makeAConstant("base_api", "http://api.chato.id:3009/")
-//            makeAConstant("base_socket", "http://devsmartoffice.egov.co.id:3012/")
-            makeAConstant("base_api", "https://client.chato.id:3010/")
-            makeAConstant("base_socket", "http://devsmartoffice.egov.co.id:3011/")
+            makeAConstant("base_api", "https://api.chato.id:3009/")
+            makeAConstant("base_socket", "http://devsmartoffice.egov.co.id:3012/")
+//            makeAConstant("base_api", "https://client.chato.id:3010/")
+//            makeAConstant("base_socket", "http://devsmartoffice.egov.co.id:3011/")
         }
         debug {
             def makeAConstant = { constantName, constantValue ->
