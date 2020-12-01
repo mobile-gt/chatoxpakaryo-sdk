@@ -10,6 +10,7 @@ import android.widget.ProgressBar;
 
 import com.gamatechno.chato.sdk.R;
 import com.gamatechno.chato.sdk.module.activity.ChatoPermissionActivity;
+import com.gamatechno.chato.sdk.module.core.ChatoBaseApplication;
 import com.gamatechno.chato.sdk.utils.FilePath.IOUtils;
 import com.gamatechno.chato.sdk.utils.ChatoToolbar;
 import com.gamatechno.chato.sdk.utils.animation.AnimationToggle;
@@ -100,7 +101,7 @@ public class ImageViewActivity extends ChatoPermissionActivity {
 
                     Picasso.get()
                             .load(img)
-                            .placeholder(R.drawable.ic_placeholder)
+                            .placeholder(ChatoBaseApplication.getInstance().getChatoPlaceholder())
                             .into(image, new Callback() {
                                 @Override
                                 public void onSuccess() {
@@ -116,7 +117,7 @@ public class ImageViewActivity extends ChatoPermissionActivity {
                 } else {
                     Picasso.get()
                             .load(file_uri)
-                            .placeholder(R.drawable.ic_placeholder)
+                            .placeholder(ChatoBaseApplication.getInstance().getChatoPlaceholder())
                             .into(image, new Callback() {
                                 @Override
                                 public void onSuccess() {
@@ -133,7 +134,7 @@ public class ImageViewActivity extends ChatoPermissionActivity {
             } else {
                 Picasso.get()
                         .load(img)
-                        .placeholder(R.drawable.ic_placeholder)
+                        .placeholder(ChatoBaseApplication.getInstance().getChatoPlaceholder())
                         .into(image, new Callback() {
                             @Override
                             public void onSuccess() {

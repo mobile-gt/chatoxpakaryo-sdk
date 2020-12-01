@@ -20,6 +20,7 @@ import com.gamatechno.chato.sdk.app.grouproomdetail.fragment.setting.GroupSettin
 import com.gamatechno.chato.sdk.app.grouproomdetail.viewmodel.GroupInfoViewModel
 import com.gamatechno.chato.sdk.app.photopreview.ImageViewActivity
 import com.gamatechno.chato.sdk.data.DAO.Group.Group
+import com.gamatechno.chato.sdk.module.core.ChatoBaseApplication
 import com.gamatechno.chato.sdk.module.dialogs.DialogImagePicker.DialogImagePicker
 import com.gamatechno.chato.sdk.utils.ImageUploader
 import com.gamatechno.chato.sdk.utils.Loading
@@ -75,7 +76,7 @@ class GroupInfoActivity : BaseChatRoomActivity(), GroupInfoView.View {
 //                Log.d("imageView", "imagePrev: " + group.room_photo_url)
                 Picasso.get()
                         .load((if(group.room_photo_url.equals("")) "" else group.room_photo_url))
-                        .placeholder(R.drawable.ic_placeholder)
+                        .placeholder(ChatoBaseApplication.getInstance().getChatoPlaceholder())
                         .into(avatar_header)
             } else {
                 finish()
@@ -320,7 +321,7 @@ class GroupInfoActivity : BaseChatRoomActivity(), GroupInfoView.View {
                         group.room_photo_url = url
                         Picasso.get()
                                 .load((if(group.room_photo_url.equals("")) "" else group.room_photo_url))
-                                .placeholder(R.drawable.ic_placeholder)
+                                .placeholder(ChatoBaseApplication.getInstance().getChatoPlaceholder())
                                 .into(avatar_header, object : Callback {
                                     override fun onSuccess() {
                                         photo_progress.visibility = View.GONE

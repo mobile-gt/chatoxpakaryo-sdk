@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.gamatechno.chato.sdk.R;
 import com.gamatechno.chato.sdk.data.DAO.Chat.Chat;
+import com.gamatechno.chato.sdk.module.core.ChatoBaseApplication;
 import com.gamatechno.chato.sdk.utils.BitmapTransform;
 import com.gamatechno.chato.sdk.utils.FilePath.IOUtils;
 import com.gamatechno.ggfw.utils.GGFWUtil;
@@ -87,7 +88,7 @@ public class ImageAttachmentViewHolder extends BaseChatViewHolder {
                 if(!IOUtils.isFileExist(file_uri.toString().replace("file:/", ""))){
                     Picasso.get()
                             .load(chat.getMessage_attachment())
-                            .placeholder(R.drawable.ic_placeholder)
+                            .placeholder(ChatoBaseApplication.getInstance().getChatoPlaceholder())
                             .transform(new BitmapTransform())
                             .into(image_attachment, new Callback() {
                                 @Override
@@ -104,7 +105,7 @@ public class ImageAttachmentViewHolder extends BaseChatViewHolder {
                 } else {
                     Picasso.get()
                             .load(file_uri)
-                            .placeholder(R.drawable.ic_placeholder)
+                            .placeholder(ChatoBaseApplication.getInstance().getChatoPlaceholder())
                             .transform(new BitmapTransform())
                             .into(image_attachment, new Callback() {
                                 @Override

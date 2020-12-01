@@ -9,15 +9,9 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
-
-//import cat.ereza.customactivityoncrash.config.CaocConfig;
-
-/**
- * Created by root on 2/27/18.
- */
+import com.gamatechno.chato.sdk.R;
 
 public class ChatoBaseApplication extends Application {
-//    private static final int TIMEOUT_MS = 25000; // 45second
     private static final int TIMEOUT_MS = 60000; // 45second
 
     private RequestQueue requestQueue;
@@ -26,36 +20,26 @@ public class ChatoBaseApplication extends Application {
     public ChatoBaseApplication() {
         super();
     }
+    private int chato_placeholder = R.drawable.ic_placeholder;
 
     @Override
     public void onCreate() {
         super.onCreate();
-//        CaocConfig.Builder.create()
-//                .backgroundMode(CaocConfig.BACKGROUND_MODE_SILENT) //default: CaocConfig.BACKGROUND_MODE_SHOW_CUSTOM
-//                .errorDrawable(R.drawable.ic_bug_fixed)
-////                .enabled(false) //default: true
-//                .showErrorDetails(false) //default: true
-//                //.showRestartButton(false) //default: true
-////                .errorDrawable(R.drawable.logo_lestari) //default: bug image
-//                .trackActivities(true) //default: false
-//                //.minTimeBetweenCrashesMs(2000) //default: 3000
-////                .errorDrawable(R.drawable.error) //default: bug image
-//                //.restartActivity(LandingActivity.class) //default: null (your app's launch activity)
-//                //.errorActivity(CustomErrorHandlerActivity.class) //default: null (default error activity)
-//                //.eventListener(new YourCustomEventListener()) //default: null
-//                .apply();
         instance = this;
+    }
+
+    public int getChatoPlaceholder(){
+        return chato_placeholder;
+    }
+
+    public void setChatoPlaceholder(int drawable){
+        this.chato_placeholder = drawable;
     }
 
     public static synchronized ChatoBaseApplication getInstance() {
         return instance;
     }
 
-    /**
-     * Get RequestQueue
-     *
-     * @return
-     */
     public RequestQueue getChatoRequestQueue() {
         Log.d("BaseApplication", "getRequestQueue : ");
         if (requestQueue == null) {
@@ -66,12 +50,6 @@ public class ChatoBaseApplication extends Application {
         return requestQueue;
     }
 
-    /**
-     * add to request using tag
-     *
-     * @param request
-     * @param tag
-     */
     public <T> void addToChatoRequestQueue(Request<T> request, String tag) {
         request.setTag(tag);
 

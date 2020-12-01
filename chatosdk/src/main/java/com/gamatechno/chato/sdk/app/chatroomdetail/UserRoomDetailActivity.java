@@ -4,6 +4,8 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
+
+import com.gamatechno.chato.sdk.module.core.ChatoBaseApplication;
 import com.google.android.material.appbar.AppBarLayout;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -121,8 +123,8 @@ public class UserRoomDetailActivity extends ChatoCoreActivity implements UserRoo
     private void initComponent(){
         Picasso.get()
                 .load((chatRoomUiModel.getAvatar().equals("") ? "google.com": chatRoomUiModel.getAvatar()))
-//                .load(R.drawable.ic_placeholder)
-                .placeholder(R.drawable.ic_placeholder)
+//                .load(ChatoBaseApplication.getInstance().getChatoPlaceholder())
+                .placeholder(ChatoBaseApplication.getInstance().getChatoPlaceholder())
                 .into(avatar_header);
         getSupportActionBar().setTitle(chatRoomUiModel.getTitle());
 
