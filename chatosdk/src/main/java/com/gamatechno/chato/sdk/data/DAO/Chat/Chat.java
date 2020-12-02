@@ -137,6 +137,10 @@ public class Chat implements Serializable {
         return room_code;
     }
 
+    public void setRoom_code(String room_code) {
+        this.room_code = room_code;
+    }
+
     public Chat(int message_id, int from_user_id, String from_username, String from_username_photo, int to_user_id, String to_username, String to_username_photo, String message_text, String message_type, String message_attachment, String message_status, String message_date, String message_time, String payload) {
         this.message_id = message_id;
         this.from_user_id = from_user_id;
