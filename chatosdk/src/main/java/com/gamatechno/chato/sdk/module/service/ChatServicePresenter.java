@@ -180,6 +180,7 @@ public class ChatServicePresenter extends BasePresenter implements ChatServiceVi
                                 params.put("to_user_id", ("" + roomChat.getRoom_type()).equals(RoomChat.group_room_type) ? ""+roomChat.getRoom_id():""+roomChat.getDetail_last_message().getFrom_user_id());
                                 params.put("message", message);
                                 params.put("room_id", ""+roomChat.getRoom_id() == null ? "" : ""+roomChat.getRoom_id() );
+                                params.put("room_code", ""+roomChat.getRoom_code() == null ? "" : ""+roomChat.getRoom_code() );
                                 params.put("message_type", ""+Chat.chat_type_message);
                                 params.put("payload", "reply");
                                 return params;
