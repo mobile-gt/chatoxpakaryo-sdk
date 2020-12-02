@@ -502,13 +502,13 @@ public class ChatRoomActivity extends BaseChatRoomActivity implements ChatRoomVi
                         presenter.starChat(ChatroomHelper.getSelectedOneChat(chatList), chatRoomUiModel.getRoom_id());
                         sterilizeChat();
                         break;
-                     case StringConstant.appbar_info:
-                         if(isRoomAGroup(chatRoomUiModel)){
-                             presenter.getGroupMessageInfo(ChatroomHelper.getSelectedOneChat(chatList), chatRoomUiModel.getRoom_id());
-                         } else {
-                             presenter.getMessageInfo(ChatroomHelper.getSelectedOneChat(chatList));
-                         }
-                         sterilizeChat();
+                    case StringConstant.appbar_info:
+                        if(isRoomAGroup(chatRoomUiModel)){
+                            presenter.getGroupMessageInfo(ChatroomHelper.getSelectedOneChat(chatList), chatRoomUiModel.getRoom_id());
+                        } else {
+                            presenter.getMessageInfo(ChatroomHelper.getSelectedOneChat(chatList));
+                        }
+                        sterilizeChat();
                         break;
 
                 }
@@ -1299,7 +1299,7 @@ public class ChatRoomActivity extends BaseChatRoomActivity implements ChatRoomVi
     @Override
     public void checkListMessageStatus(List<Chat> list_message_with_status) {
         Log.d(TAG, "checkListMessageStatus: "+list_message_with_status.get(0).getMessage_id() + ","
-        + list_message_with_status.get(0).getMessage_status());
+                + list_message_with_status.get(0).getMessage_status());
         if(list_message_with_status.size()>0){
 //            if(list_message_with_status.get(0).getFrom_user_id() == Integer.valueOf(chatRoomUiModel.getUser_id())){
             if(list_message_with_status.get(0).getRoom_id().equals(chatRoomUiModel.getRoom_id())){
@@ -1352,21 +1352,21 @@ public class ChatRoomActivity extends BaseChatRoomActivity implements ChatRoomVi
         Chat ch = null;
         switch (TYPE_ATTACHMENT){
             case TYPE_MESSAGE:
-                ch = new Chat(ChatoUtils.getUserLogin(getContext()).getUser_id(), Integer.valueOf(chatRoomUiModel.getUser_id()), edt_message.getText().toString(), Chat.chat_type_message, "", StringConstant.chat_status_sending, ""+chatList.size(), chatRoomUiModel.getRoom_id());
+                ch = new Chat(ChatoUtils.getUserLogin(getContext()).getUser_id(), Integer.valueOf(chatRoomUiModel.getUser_id()), edt_message.getText().toString(), Chat.chat_type_message, "", StringConstant.chat_status_sending, ""+chatList.size(), chatRoomUiModel.getRoom_id(), chatRoomUiModel.getRoom_code());
                 onShowAttachment(null, TYPE_MESSAGE, "");
                 break;
             case TYPE_IMAGE:
-                ch = new Chat(ChatoUtils.getUserLogin(getContext()).getUser_id(), Integer.valueOf(chatRoomUiModel.getUser_id()), edt_message.getText().toString(), Chat.chat_type_image, file_attachment,  StringConstant.chat_status_sending, ""+chatList.size(), fileModel, bitmap_image, chatRoomUiModel.getRoom_id());
+                ch = new Chat(ChatoUtils.getUserLogin(getContext()).getUser_id(), Integer.valueOf(chatRoomUiModel.getUser_id()), edt_message.getText().toString(), Chat.chat_type_image, file_attachment,  StringConstant.chat_status_sending, ""+chatList.size(), fileModel, bitmap_image, chatRoomUiModel.getRoom_id(), chatRoomUiModel.getRoom_code());
                 onShowAttachment(null, TYPE_IMAGE, "");
                 break;
             case TYPE_FILE:
-                ch = new Chat(ChatoUtils.getUserLogin(getContext()).getUser_id(), Integer.valueOf(chatRoomUiModel.getUser_id()), edt_message.getText().toString(), Chat.chat_type_file, file_attachment,  StringConstant.chat_status_sending, ""+chatList.size(), fileModel, chatRoomUiModel.getRoom_id());
+                ch = new Chat(ChatoUtils.getUserLogin(getContext()).getUser_id(), Integer.valueOf(chatRoomUiModel.getUser_id()), edt_message.getText().toString(), Chat.chat_type_file, file_attachment,  StringConstant.chat_status_sending, ""+chatList.size(), fileModel, chatRoomUiModel.getRoom_id(), chatRoomUiModel.getRoom_code());
                 onShowAttachment(null, TYPE_IMAGE, "");
                 ch.setUri_attachment(fileModel.getUri().toString());
 //                IOUtils.savefile(fileModel.getUri(), Chat.chat_type_file);
                 break;
             case VIDEO_FILE:
-                ch = new Chat(ChatoUtils.getUserLogin(getContext()).getUser_id(), Integer.valueOf(chatRoomUiModel.getUser_id()), edt_message.getText().toString(), Chat.chat_type_video, file_attachment,  StringConstant.chat_status_sending, ""+chatList.size(), fileModel, chatRoomUiModel.getRoom_id(), GGFWUtil.convertToBase64(thumb_file_attachment));
+                ch = new Chat(ChatoUtils.getUserLogin(getContext()).getUser_id(), Integer.valueOf(chatRoomUiModel.getUser_id()), edt_message.getText().toString(), Chat.chat_type_video, file_attachment,  StringConstant.chat_status_sending, ""+chatList.size(), fileModel, chatRoomUiModel.getRoom_id(), GGFWUtil.convertToBase64(thumb_file_attachment), chatRoomUiModel.getRoom_code());
                 ch.setVideoDownloding(true);
                 ch.setUri_attachment(fileModel.getUri().toString());
                 ch.setMessage_attachment_name(fileModel.getNamefile());

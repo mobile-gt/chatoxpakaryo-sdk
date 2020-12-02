@@ -92,6 +92,7 @@ public class Chat implements Serializable {
     boolean isVideoDownloding = false;
 
     String room_id = "";
+    String room_code = "";
 
     @Ignore
     String message_action = "";
@@ -130,6 +131,10 @@ public class Chat implements Serializable {
 
     public void setMessage_star(int message_star) {
         this.message_star = message_star;
+    }
+
+    public String getRoom_code() {
+        return room_code;
     }
 
     public Chat(int message_id, int from_user_id, String from_username, String from_username_photo, int to_user_id, String to_username, String to_username_photo, String message_text, String message_type, String message_attachment, String message_status, String message_date, String message_time, String payload) {
@@ -171,7 +176,7 @@ public class Chat implements Serializable {
     }
 
     @Ignore
-    public Chat(int from_user_id, int to_user_id, String message_text, String message_type, String message_attachment, String message_status, String payload, String room_id) {
+    public Chat(int from_user_id, int to_user_id, String message_text, String message_type, String message_attachment, String message_status, String payload, String room_id, String room_code) {
         this.from_user_id = from_user_id;
         this.to_user_id = to_user_id;
         this.message_text = message_text;
@@ -180,7 +185,9 @@ public class Chat implements Serializable {
         this.message_status = message_status;
         this.payload = payload;
         this.room_id = room_id;
+        this.room_code = room_code;
     }
+
 
     @Ignore
     public void setReplyComponent(Chat component) {
@@ -194,7 +201,7 @@ public class Chat implements Serializable {
     }
 
     @Ignore
-    public Chat(int from_user_id, int to_user_id, String message_text, String message_type, String message_attachment, String message_status, String payload, FileModel fileModel, Bitmap bitmap_image, String room_id) {
+    public Chat(int from_user_id, int to_user_id, String message_text, String message_type, String message_attachment, String message_status, String payload, FileModel fileModel, Bitmap bitmap_image, String room_id, String room_code) {
         this.from_user_id = from_user_id;
         this.to_user_id = to_user_id;
         this.message_text = message_text;
@@ -204,6 +211,7 @@ public class Chat implements Serializable {
         this.payload = payload;
         this.bitmap_image = bitmap_image;
         this.room_id = room_id;
+        this.room_code = room_code;
         this.fileModel = fileModel;
     }
 
@@ -220,7 +228,7 @@ public class Chat implements Serializable {
     }
 
     @Ignore
-    public Chat(int from_user_id, int to_user_id, String message_text, String message_type, String message_attachment, String message_status, String payload, FileModel fileModel, String room_id, String thumb_video) {
+    public Chat(int from_user_id, int to_user_id, String message_text, String message_type, String message_attachment, String message_status, String payload, FileModel fileModel, String room_id, String thumb_video, String from) {
         this.from_user_id = from_user_id;
         this.to_user_id = to_user_id;
         this.message_text = message_text;
@@ -231,10 +239,11 @@ public class Chat implements Serializable {
         this.payload = payload;
         this.fileModel = fileModel;
         this.room_id = room_id;
+        this.from_username = from;
     }
 
     @Ignore
-    public Chat(int from_user_id, int to_user_id, String message_text, String message_type, String message_attachment, String message_status, String payload, FileModel fileModel, String room_id) {
+    public Chat(int from_user_id, int to_user_id, String message_text, String message_type, String message_attachment, String message_status, String payload, FileModel fileModel, String room_id, String room_code) {
         this.from_user_id = from_user_id;
         this.to_user_id = to_user_id;
         this.message_text = message_text;
@@ -244,6 +253,7 @@ public class Chat implements Serializable {
         this.payload = payload;
         this.fileModel = fileModel;
         this.room_id = room_id;
+        this.room_code = room_code;
     }
 
     @Ignore

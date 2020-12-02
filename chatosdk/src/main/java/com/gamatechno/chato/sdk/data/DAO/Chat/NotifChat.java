@@ -35,13 +35,13 @@ public class NotifChat extends Chat {
     }
 
     @Ignore
-    public NotifChat(int from_user_id, int to_user_id, String message_text, String message_type, String message_attachment, String message_status, String payload, String room_id) {
-        super(from_user_id, to_user_id, message_text, message_type, message_attachment, message_status, payload, room_id);
+    public NotifChat(int from_user_id, int to_user_id, String message_text, String message_type, String message_attachment, String message_status, String payload, String room_id, String room_code) {
+        super(from_user_id, to_user_id, message_text, message_type, message_attachment, message_status, payload, room_id, room_code);
     }
 
     @Ignore
-    public NotifChat(int from_user_id, int to_user_id, String message_text, String message_type, String message_attachment, String message_status, String payload, FileModel fileModel, Bitmap bitmap_image, String room_id) {
-        super(from_user_id, to_user_id, message_text, message_type, message_attachment, message_status, payload, fileModel, bitmap_image, room_id);
+    public NotifChat(int from_user_id, int to_user_id, String message_text, String message_type, String message_attachment, String message_status, String payload, FileModel fileModel, Bitmap bitmap_image, String room_id, String room_code) {
+        super(from_user_id, to_user_id, message_text, message_type, message_attachment, message_status, payload, fileModel, bitmap_image, room_id, room_code);
     }
 
     @Ignore
@@ -50,12 +50,13 @@ public class NotifChat extends Chat {
     }
 
     @Ignore
-    public NotifChat(int from_user_id, int to_user_id, String message_text, String message_type, String message_attachment, String message_status, String payload, FileModel fileModel, String room_id, String thumb_video) {
-        super(from_user_id, to_user_id, message_text, message_type, message_attachment, message_status, payload, fileModel, room_id, thumb_video);
+    public NotifChat(int from_user_id, int to_user_id, String message_text, String message_type, String message_attachment, String message_status, String payload, FileModel fileModel, String room_id, String thumb_video, String room_code) {
+        super(from_user_id, to_user_id, message_text, message_type, message_attachment, message_status, payload, fileModel, room_id, thumb_video, room_code);
     }
 
     @Ignore
-    public NotifChat(int from_user_id, int to_user_id, String message_text, String message_type, String message_attachment, String message_status, String payload, FileModel fileModel, String room_id) {
-        super(from_user_id, to_user_id, message_text, message_type, message_attachment, message_status, payload, fileModel, room_id);
+    public NotifChat(int from_user_id, int to_user_id, String message_text, String message_type, String message_attachment, String message_status, String payload, FileModel fileModel, String room_id, String room_code) {
+        super(from_user_id, to_user_id, message_text, message_type, message_attachment, message_status, payload, fileModel, room_id, room_code);
     }
 }
+

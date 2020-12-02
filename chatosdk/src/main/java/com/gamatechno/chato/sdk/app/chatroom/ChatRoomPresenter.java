@@ -255,6 +255,7 @@ public class ChatRoomPresenter extends BasePresenter implements ChatRoomView.Pre
                 params.put("to_user_id", ""+chat.getTo_user_id());
                 params.put("message", ""+chat.getMessage_text());
                 params.put("room_id", chat.getRoom_id() == "0" ? "" : chat.getRoom_id() );
+                params.put("room_code", chat.getRoom_code().equals("") ? "" : chat.getRoom_code() );
                 params.put("message_type", ""+chat.getMessage_type());
                 params.put("message_file", ""+chat.getMessage_attachment());
                 params.put("payload", ""+chat.getPayload());
@@ -850,3 +851,4 @@ public class ChatRoomPresenter extends BasePresenter implements ChatRoomView.Pre
         });
     }
 }
+

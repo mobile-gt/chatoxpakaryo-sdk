@@ -243,20 +243,20 @@ class RoomBroadcastActivity : BaseRoomBroadcastActivity(), View.OnClickListener,
         var ch: Chat? = null
         when (TYPE_ATTACHMENT) {
             TYPE_MESSAGE -> {
-                ch = Chat(ChatoUtils.getUserLogin(context).user_id, 0, edt_message.text.toString(), Chat.chat_type_message, "", StringConstant.chat_status_sending, "" + chatList!!.size, "")
+                ch = Chat(ChatoUtils.getUserLogin(context).user_id, 0, edt_message.text.toString(), Chat.chat_type_message, "", StringConstant.chat_status_sending, "" + chatList!!.size, "", "")
                 onShowAttachment(null, TYPE_MESSAGE, "")
             }
             TYPE_IMAGE -> {
-                ch = Chat(ChatoUtils.getUserLogin(context).user_id, 0, edt_message.text.toString(), Chat.chat_type_image, file_attachment, StringConstant.chat_status_sending, "" + chatList!!.size, fileModel, bitmap_image, "")
+                ch = Chat(ChatoUtils.getUserLogin(context).user_id, 0, edt_message.text.toString(), Chat.chat_type_image, file_attachment, StringConstant.chat_status_sending, "" + chatList!!.size, fileModel, bitmap_image, "", "")
                 onShowAttachment(null, TYPE_IMAGE, "")
             }
             TYPE_FILE -> {
-                ch = Chat(ChatoUtils.getUserLogin(context).user_id, 0, edt_message.text.toString(), Chat.chat_type_file, file_attachment, StringConstant.chat_status_sending, "" + chatList!!.size, fileModel, "")
+                ch = Chat(ChatoUtils.getUserLogin(context).user_id, 0, edt_message.text.toString(), Chat.chat_type_file, file_attachment, StringConstant.chat_status_sending, "" + chatList!!.size, fileModel, "", "")
                 onShowAttachment(null, TYPE_IMAGE, "")
                 ch.uri_attachment = fileModel!!.uri.toString()
             }
             VIDEO_FILE -> {
-                ch = Chat(ChatoUtils.getUserLogin(context).user_id, 0, edt_message.text.toString(), Chat.chat_type_video, file_attachment, StringConstant.chat_status_sending, "" + chatList!!.size, fileModel, "", GGFWUtil.convertToBase64(thumb_file_attachment))
+                ch = Chat(ChatoUtils.getUserLogin(context).user_id, 0, edt_message.text.toString(), Chat.chat_type_video, file_attachment, StringConstant.chat_status_sending, "" + chatList!!.size, fileModel, "", GGFWUtil.convertToBase64(thumb_file_attachment), "")
                 ch!!.isVideoDownloding = true
                 ch.uri_attachment = fileModel!!.uri.toString()
                 ch.message_attachment_name = fileModel!!.namefile
