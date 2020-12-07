@@ -130,7 +130,9 @@ public class ChatRoomsFragment extends Fragment implements ChatRoomsView.View {
 
             @Override
             public void loadMore() {
-
+                if(obrolanPresenter.isSuccess && !obrolanPresenter.isLoading){
+                    obrolanPresenter.requestObrolan(false, "");
+                }
             }
         });
 
@@ -338,16 +340,16 @@ public class ChatRoomsFragment extends Fragment implements ChatRoomsView.View {
             switch (message){
                 case CODE_SERVERERROR:
                     helper_servererror.setVisibility(View.VISIBLE);
-                break;
+                    break;
                 case CODE_NETWORKERROR:
                     helper_noconnection.setVisibility(View.VISIBLE);
-                break;
+                    break;
                 case CODE_NOCONNECTIONERROR:
                     helper_noconnection.setVisibility(View.VISIBLE);
-                break;
+                    break;
                 default:
                     GGFWUtil.ToastShort(getContext(), message);
-                break;
+                    break;
             }
         } else {
             GGFWUtil.ToastShort(getContext(), message);
@@ -372,9 +374,9 @@ public class ChatRoomsFragment extends Fragment implements ChatRoomsView.View {
 
         helper_noconversation.setVisibility(View.GONE);
         if(chatRoomUiModelList.size() == 0)
-           helper_noconversation.setVisibility(View.VISIBLE);
+            helper_noconversation.setVisibility(View.VISIBLE);
         else
-           helper_noconversation.setVisibility(View.GONE);
+            helper_noconversation.setVisibility(View.GONE);
     }
 
     @Override

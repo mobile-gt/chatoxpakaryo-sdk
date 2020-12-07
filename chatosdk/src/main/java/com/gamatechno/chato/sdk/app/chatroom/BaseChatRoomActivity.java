@@ -124,7 +124,7 @@ public class BaseChatRoomActivity extends ChatoPermissionActivity {
     LinearLayout lay_detail_room;
 
     LinearLayout lay_menu_attach;
-//    ================================================================================================================================================
+    //    ================================================================================================================================================
     LinearLayout lay_document;
 
     LinearLayout lay_gallery;
@@ -418,6 +418,7 @@ public class BaseChatRoomActivity extends ChatoPermissionActivity {
             appbar_action.hide(img_info);
             appbar_action.hide(img_pinmessage);
         } else {
+            appbar_action.hide(img_forward);
             if(!isMine){
                 appbar_action.hide(img_info);
             }

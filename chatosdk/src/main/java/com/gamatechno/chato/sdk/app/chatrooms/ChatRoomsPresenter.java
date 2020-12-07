@@ -24,6 +24,8 @@ public class ChatRoomsPresenter extends BasePresenter implements ChatRoomsView.O
 
     ChatRoomsView.View view;
     int page = 0;
+    boolean isSuccess = true;
+    boolean isLoading = false;
     Gson gson;
 
     public ChatRoomsPresenter(Context context, ChatRoomsView.View view) {
@@ -34,6 +36,7 @@ public class ChatRoomsPresenter extends BasePresenter implements ChatRoomsView.O
 
     @Override
     public void requestObrolan(boolean isRefresh, String keyword) {
+        isLoading = true;
         if(isRefresh)
             page = 0;
         page++;
@@ -47,7 +50,9 @@ public class ChatRoomsPresenter extends BasePresenter implements ChatRoomsView.O
             @Override
             public void onSuccess(JSONObject response) {
                 view.onHideLoading();
+                isLoading = false;
                 try {
+                    isSuccess = response.getBoolean("success");
                     if(response.getBoolean("success")){
                         List<ChatRoomsUiModel> models = new ArrayList<>();
                         JSONObject result = response.getJSONObject("result");
@@ -68,6 +73,7 @@ public class ChatRoomsPresenter extends BasePresenter implements ChatRoomsView.O
             public void onFailure(String error) {
                 view.onHideLoading();
                 view.onErrorConnection(error);
+                isLoading = false;
             }
 
             @Override
@@ -193,3 +199,4 @@ public class ChatRoomsPresenter extends BasePresenter implements ChatRoomsView.O
     }
 
 }
+

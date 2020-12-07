@@ -1549,12 +1549,13 @@ public class ChatRoomActivity extends BaseChatRoomActivity implements ChatRoomVi
 
     @Override
     public void onBackPressed() {
+
         if(appbar_action.getVisibility() == View.VISIBLE){
             onActionBarBack();
         } else {
-            if(isFinishNeedtoIn){
+            /*if(isFinishNeedtoIn){
                 startActivity(new Intent(getContext(), ChatoActivity.class));
-            }
+            }*/
             super.onBackPressed();
         }
     }
