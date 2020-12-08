@@ -5,6 +5,7 @@ import java.util.List;
 
 public class PublishToRoom implements Serializable {
     String room_id;
+    String room_code;
     String type, user_name;
     List<Integer> message_id;
 
@@ -14,6 +15,11 @@ public class PublishToRoom implements Serializable {
 
     public PublishToRoom(String room_id) {
         this.room_id = room_id;
+    }
+
+    public PublishToRoom(String room_id, String room_code) {
+        this.room_id = room_id;
+        this.room_code = room_code;
     }
 
     public PublishToRoom(String  room_id, String type, String user_name) {

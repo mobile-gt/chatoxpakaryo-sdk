@@ -1419,7 +1419,7 @@ public class ChatRoomActivity extends BaseChatRoomActivity implements ChatRoomVi
             sendBroadcast(new Intent(StringConstant.chatroom_state_close_notif).putExtra("data", chatRoomUiModel.getUser_id()));
         }
 
-        sendBroadcast(new Intent(StringConstant.chatroom_state_open_to_room).putExtra("data", new PublishToRoom(chatRoomUiModel.getRoom_id())));
+        sendBroadcast(new Intent(StringConstant.chatroom_state_open_to_room).putExtra("data", new PublishToRoom(chatRoomUiModel.getRoom_id(), chatRoomUiModel.getRoom_code())));
     }
 
     @Override
