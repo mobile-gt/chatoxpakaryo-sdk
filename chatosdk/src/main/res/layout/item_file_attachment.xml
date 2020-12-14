@@ -8,11 +8,14 @@
     android:layout_height="wrap_content">
     <TextView
         android:visibility="gone"
-        android:padding="@dimen/dimen_4dp"
+        android:paddingLeft="@dimen/dimen_16dp"
+        android:paddingRight="@dimen/dimen_16dp"
+        android:paddingTop="@dimen/dimen_2dp"
+        android:paddingBottom="@dimen/dimen_2dp"
         android:background="@drawable/indicator_corner_bg"
         android:textColor="@color/white"
         android:id="@+id/tv_date"
-        android:text="Rabu 5 Desember 2018"
+        android:text="HARI INI"
         style="@style/Text.Caption.Bold"
         android:layout_margin="@dimen/dimen_8dp"
         android:layout_gravity="center_horizontal"
@@ -38,9 +41,9 @@
             android:layout_centerHorizontal="true"
             app:contentPaddingLeft="@dimen/dimen_16dp"
             app:contentPaddingRight="@dimen/dimen_16dp"
-            app:contentPaddingBottom="@dimen/dimen_8dp"
-            app:contentPaddingTop="@dimen/dimen_8dp"
-            app:cardBackgroundColor="@color/blue_500"
+            app:contentPaddingBottom="@dimen/dimen_4dp"
+            app:contentPaddingTop="@dimen/dimen_4dp"
+            app:cardBackgroundColor="@color/colorPrimary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <TextView

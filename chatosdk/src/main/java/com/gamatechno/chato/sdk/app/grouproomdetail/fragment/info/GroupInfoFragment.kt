@@ -67,7 +67,7 @@ class GroupInfoFragment : FragmentPermission(), GroupInfoFragmentView.View {
         listKontak = ArrayList()
         kontakAdapter = KontakAdapter(context, listKontak, object : KontakAdapter.OnKontakAdapter{
             override fun onKontakClick(kontakModel: KontakModel?, position: Int) {
-                if(!kontakModel!!.user_id.equals(ChatoUtils.getUserLogin(context).user_id)){
+                /*if(!kontakModel!!.user_id.equals(ChatoUtils.getUserLogin(context).user_id)){
                     GroupActionDialog(context, group, kontakModel!!, object : GroupActionDialog.OnGroupActionListener{
                         override fun onChat(dialog: Dialog, kontakModel: KontakModel) {
                             if(kontakModel.user_id != ChatoUtils.getUserLogin(getContext()).user_id){
@@ -109,7 +109,7 @@ class GroupInfoFragment : FragmentPermission(), GroupInfoFragmentView.View {
                         }
 
                     })
-                }
+                }*/
             }
 
             override fun onMakeGroup() {

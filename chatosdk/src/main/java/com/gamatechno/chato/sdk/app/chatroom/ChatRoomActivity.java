@@ -270,6 +270,7 @@ public class ChatRoomActivity extends BaseChatRoomActivity implements ChatRoomVi
         }
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -362,6 +363,7 @@ public class ChatRoomActivity extends BaseChatRoomActivity implements ChatRoomVi
             Chat chat = roomChat.getDetail_last_message();
             chatRoomUiModel = new ChatRoomUiModel(""+roomChat.getRoom_id(), roomChat.getRoom_name(), roomChat.getRoom_photo(), ""+chat.getRoom_id());
             chatRoomUiModel.setType(roomChat.getRoom_type());
+            chatRoomUiModel.setRoom_code(roomChat.getRoom_code());
             requestHistory(chatRoomUiModel.getUser_id(), ""+ ChatoUtils.getUserLogin(getContext()).getUser_id(), true);
             setToolbar(chatRoomUiModel);
             GGFWUtil.setStringToSP(getContext(), Preferences.OPENED_CHATROOM_ID, chatRoomUiModel.getRoom_id());
@@ -1571,10 +1573,11 @@ public class ChatRoomActivity extends BaseChatRoomActivity implements ChatRoomVi
         if(appbar_action.getVisibility() == View.VISIBLE){
             onActionBarBack();
         } else {
-            /*if(isFinishNeedtoIn){
-                startActivity(new Intent(getContext(), ChatoActivity.class));
-            }*/
-            super.onBackPressed();
+            if (lay_menu_attach.getVisibility() == View.VISIBLE) {
+                lay_menu_attach.setVisibility(View.GONE);
+            } else {
+                super.onBackPressed();
+            }
         }
     }
 

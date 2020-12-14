@@ -61,7 +61,7 @@ public class ChatRoomPresenter extends BasePresenter implements ChatRoomView.Pre
         if(isRefresh)
             api = Api.get_history_chat("" + userid, "" + page, (room_id.equals("0") ? "" : room_id));
         else
-            api = Api.get_history_chat("" + userid, from_chatid, "" + page, (room_id.equals("0") ? "" : room_id));
+            api = Api.get_history_chat("" + userid, from_chatid, "" + page, (room_id.equals("0") ? "" : room_id), (room_id.equals("0") ? "" : room_id));
 
         GGFWRest.GET(api, new RequestInterface.OnGetRequest() {
             @Override

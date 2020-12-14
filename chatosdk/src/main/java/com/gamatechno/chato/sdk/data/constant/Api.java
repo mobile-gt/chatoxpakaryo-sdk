@@ -81,8 +81,8 @@ public class Api {
         return base_api + BuildConfig.stringHistoryChat+"?page="+page+"&to_user_id="+to_user_id+"&room_code="+room_code;
     }
 
-    public static String get_history_chat(String to_user_id, String last_message_id, String page, String room_id) {
-        return base_api + BuildConfig.stringHistoryChat+"?page="+page+"&to_user_id="+to_user_id+"&last_message_id="+last_message_id+"&room_id="+room_id;
+    public static String get_history_chat(String to_user_id, String last_message_id, String page, String room_id, String room_code) {
+        return base_api + BuildConfig.stringHistoryChat+"?page="+page+"&to_user_id="+to_user_id+"&last_message_id="+last_message_id+"&room_id="+room_id+"&room_code="+room_code;
     }
 
     public static String get_history_groupchat(String to_user_id, String last_message_id, String page) {
