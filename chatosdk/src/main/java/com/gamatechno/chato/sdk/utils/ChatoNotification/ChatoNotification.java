@@ -152,7 +152,7 @@ public class ChatoNotification {
 
         String GROUP_KEY = BuildConfig.LIBRARY_PACKAGE_NAME+"_"+roomChat.getRoom_id();
         String NOTIFICATION_CHANNEL_ID = ""+chat.getChatId();
-        Uri soundUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + context.getPackageName() + "/" + R.raw.chato_sound);
+//        Uri soundUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + context.getPackageName() + "/" + R.raw.chato_sound);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             AudioAttributes audioAttributes = new AudioAttributes.Builder()
@@ -166,9 +166,9 @@ public class ChatoNotification {
             notificationChannel.enableLights(true);
             notificationChannel.setLightColor(ContextCompat.getColor(context, R.color.colorPrimary));
 //            notificationChannel.setVibrationPattern(new long[]{0, 1000, 500, 1000});
-            notificationChannel.setVibrationPattern(new long[]{0, 1000});
+//            notificationChannel.setVibrationPattern(new long[]{0, 1000}); TODO : here vibration
             notificationChannel.enableVibration(true);
-            notificationChannel.setSound(soundUri, audioAttributes);
+//            notificationChannel.setSound(soundUri, audioAttributes);
             notificationChannel.setImportance(NotificationManager.IMPORTANCE_HIGH);
             notificationManager.createNotificationChannel(notificationChannel);
 
@@ -185,9 +185,9 @@ public class ChatoNotification {
         inboxStyle.addLine(messageText(notifChat));
 
         notificationBuilder = new NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID);
+//        .setSound(soundUri)
         notificationBuilder.setAutoCancel(true)
                 .setDefaults(Notification.DEFAULT_ALL)
-                .setSound(soundUri)
                 .setWhen(System.currentTimeMillis())
                 .setSmallIcon(R.drawable.ic_logo_mini)
                 .setTicker(BuildConfig.application_name)

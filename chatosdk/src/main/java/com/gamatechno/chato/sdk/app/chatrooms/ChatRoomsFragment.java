@@ -66,8 +66,6 @@ public class ChatRoomsFragment extends Fragment implements ChatRoomsView.View {
 
     ChatRoomsPresenter obrolanPresenter;
 
-    List<ChatRoomsUiModel> chatRoomUiModelList;
-
     ChatRoomsViewModel viewModel;
 
     boolean isLoadMore = true;
@@ -124,7 +122,6 @@ public class ChatRoomsFragment extends Fragment implements ChatRoomsView.View {
 
             @Override
             public void hide() {
-//                Log.d("ChatRoomsFragment", "hide: ");
                 viewModel.updateScrollStatus(false);
             }
 
@@ -146,18 +143,25 @@ public class ChatRoomsFragment extends Fragment implements ChatRoomsView.View {
         swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                swipe.setRefreshing(false);
                 keyword = "";
                 obrolanPresenter.requestObrolan(true, "");
             }
         });
 
+        observeViewModel();
+
+        btn_tryservererror.setOnClickListener(onClickListener());
+        btn_tryconnection.setOnClickListener(onClickListener());
+        return rootView;
+    }
+
+    private void observeViewModel(){
         viewModel.initRequestDelete().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(@Nullable Boolean aBoolean) {
                 if(aBoolean){
-                    if(chatRoomUiModelList != null){
-                        ChatRoomsUiModel model = ChatRoomsHelper.getChatRoomClicked(chatRoomUiModelList);
+                    if(roomAdapter.getData() != null){
+                        ChatRoomsUiModel model = ChatRoomsHelper.getChatRoomClicked(roomAdapter.getData());
                         obrolanPresenter.deleteRoom(model);
                         uncheckTheChatRoom(false);
                     }
@@ -179,8 +183,8 @@ public class ChatRoomsFragment extends Fragment implements ChatRoomsView.View {
             @Override
             public void onChanged(@Nullable Boolean isRoom) {
                 if(isRoom != null){
-                    if(chatRoomUiModelList != null){
-                        obrolanPresenter.pinChatRoom(ChatRoomsHelper.getChatRoomClicked(chatRoomUiModelList), ChatRoomsHelper.totalPinnedChatRoom(chatRoomUiModelList));
+                    if(roomAdapter.getData() != null){
+                        obrolanPresenter.pinChatRoom(ChatRoomsHelper.getChatRoomClicked(roomAdapter.getData()), ChatRoomsHelper.totalPinnedChatRoom(roomAdapter.getData()));
                         uncheckTheChatRoom(false);
                     }
                 }
@@ -191,12 +195,12 @@ public class ChatRoomsFragment extends Fragment implements ChatRoomsView.View {
         viewModel.initChatRoomClickFromSearch().observe(getViewLifecycleOwner(), new Observer<ChatRoomsUiModel>() {
             @Override
             public void onChanged(@Nullable ChatRoomsUiModel model) {
-                if(ChatRoomsHelper.getChatRoomClicked(chatRoomUiModelList) != null){
-                    if(ChatRoomsHelper.getIndexChatRoom(chatRoomUiModelList, model) != -1){
-                        if(ChatRoomsHelper.getChatRoomClicked(chatRoomUiModelList).getRoomChat().getRoom_id() == model.getRoomChat().getRoom_id()){
-                            chatRoomUiModelList.get(ChatRoomsHelper.getIndexChatRoom(chatRoomUiModelList, model)).setIs_checked(false);
+                if(ChatRoomsHelper.getChatRoomClicked(roomAdapter.getData()) != null){
+                    if(ChatRoomsHelper.getIndexChatRoom(roomAdapter.getData(), model) != -1){
+                        if(ChatRoomsHelper.getChatRoomClicked(roomAdapter.getData()).getRoomChat().getRoom_id() == model.getRoomChat().getRoom_id()){
+                            roomAdapter.getData().get(ChatRoomsHelper.getIndexChatRoom(roomAdapter.getData(), model)).setIs_checked(false);
                         } else {
-                            checkTheChatRoom(ChatRoomsHelper.getIndexChatRoom(chatRoomUiModelList, model), true);
+                            checkTheChatRoom(ChatRoomsHelper.getIndexChatRoom(roomAdapter.getData(), model), true);
                         }
                         viewModel.updateChatRoomsLongPress(model);
                     }
@@ -212,18 +216,18 @@ public class ChatRoomsFragment extends Fragment implements ChatRoomsView.View {
         viewModel.initChatRoomLongPressFromSearch().observe(getViewLifecycleOwner(), new Observer<ChatRoomsUiModel>() {
             @Override
             public void onChanged(@Nullable ChatRoomsUiModel chatRoomUiModel) {
-                if(ChatRoomsHelper.getChatRoomClicked(chatRoomUiModelList) != null){
-                    if(ChatRoomsHelper.getIndexChatRoom(chatRoomUiModelList, chatRoomUiModel) != -1){
-                        if(ChatRoomsHelper.getChatRoomClicked(chatRoomUiModelList).getRoomChat().getRoom_id() == chatRoomUiModel.getRoomChat().getRoom_id()){
-                            chatRoomUiModelList.get(ChatRoomsHelper.getIndexChatRoom(chatRoomUiModelList, chatRoomUiModel)).setIs_checked(false);
+                if(ChatRoomsHelper.getChatRoomClicked(roomAdapter.getData()) != null){
+                    if(ChatRoomsHelper.getIndexChatRoom(roomAdapter.getData(), chatRoomUiModel) != -1){
+                        if(ChatRoomsHelper.getChatRoomClicked(roomAdapter.getData()).getRoomChat().getRoom_id() == chatRoomUiModel.getRoomChat().getRoom_id()){
+                            roomAdapter.getData().get(ChatRoomsHelper.getIndexChatRoom(roomAdapter.getData(), chatRoomUiModel)).setIs_checked(false);
                         } else {
-                            checkTheChatRoom(ChatRoomsHelper.getIndexChatRoom(chatRoomUiModelList, chatRoomUiModel), true);
+                            checkTheChatRoom(ChatRoomsHelper.getIndexChatRoom(roomAdapter.getData(), chatRoomUiModel), true);
                         }
                         viewModel.updateChatRoomsLongPress(chatRoomUiModel);
                     }
                 } else {
-                    if(ChatRoomsHelper.getIndexChatRoom(chatRoomUiModelList, chatRoomUiModel) != -1){
-                        checkTheChatRoom(ChatRoomsHelper.getIndexChatRoom(chatRoomUiModelList, chatRoomUiModel), true);
+                    if(ChatRoomsHelper.getIndexChatRoom(roomAdapter.getData(), chatRoomUiModel) != -1){
+                        checkTheChatRoom(ChatRoomsHelper.getIndexChatRoom(roomAdapter.getData(), chatRoomUiModel), true);
                         viewModel.updateChatRoomsLongPress(chatRoomUiModel);
                     }
                 }
@@ -236,10 +240,6 @@ public class ChatRoomsFragment extends Fragment implements ChatRoomsView.View {
                 obrolanPresenter.requestObrolan(true, "");
             }
         });
-
-        btn_tryservererror.setOnClickListener(onClickListener());
-        btn_tryconnection.setOnClickListener(onClickListener());
-        return rootView;
     }
 
     public View.OnClickListener onClickListener() {
@@ -256,18 +256,16 @@ public class ChatRoomsFragment extends Fragment implements ChatRoomsView.View {
     }
 
     private void initObrolan(){
-        chatRoomUiModelList = new ArrayList<>();
-
         obrolanPresenter = new ChatRoomsPresenter(getContext(), this);
-        roomAdapter = new RoomAdapter(getContext(), chatRoomUiModelList, new RoomAdapter.OnObrolanAdapter() {
+        roomAdapter = new RoomAdapter(getContext(), new RoomAdapter.OnObrolanAdapter() {
             @Override
             public void onClickObrolan(ChatRoomsUiModel model) {
-                if(ChatRoomsHelper.getChatRoomClicked(chatRoomUiModelList) != null){
-                    if(ChatRoomsHelper.getIndexChatRoom(chatRoomUiModelList, model) != -1){
-                        if(ChatRoomsHelper.getChatRoomClicked(chatRoomUiModelList).getRoomChat().getRoom_id() == model.getRoomChat().getRoom_id()){
-                            chatRoomUiModelList.get(ChatRoomsHelper.getIndexChatRoom(chatRoomUiModelList, model)).setIs_checked(false);
+                if(ChatRoomsHelper.getChatRoomClicked(roomAdapter.getData()) != null){
+                    if(ChatRoomsHelper.getIndexChatRoom(roomAdapter.getData(), model) != -1){
+                        if(ChatRoomsHelper.getChatRoomClicked(roomAdapter.getData()).getRoomChat().getRoom_id() == model.getRoomChat().getRoom_id()){
+                            roomAdapter.getData().get(ChatRoomsHelper.getIndexChatRoom(roomAdapter.getData(), model)).setIs_checked(false);
                         } else {
-                            checkTheChatRoom(ChatRoomsHelper.getIndexChatRoom(chatRoomUiModelList, model), true);
+                            checkTheChatRoom(ChatRoomsHelper.getIndexChatRoom(roomAdapter.getData(), model), true);
                         }
                         viewModel.updateChatRoomsLongPress(model);
                     }
@@ -281,18 +279,18 @@ public class ChatRoomsFragment extends Fragment implements ChatRoomsView.View {
 
             @Override
             public void onLongClick(ChatRoomsUiModel chatRoomUiModel) {
-                if(ChatRoomsHelper.getChatRoomClicked(chatRoomUiModelList) != null){
-                    if(ChatRoomsHelper.getIndexChatRoom(chatRoomUiModelList, chatRoomUiModel) != -1){
-                        if(ChatRoomsHelper.getChatRoomClicked(chatRoomUiModelList).getRoomChat().getRoom_id() == chatRoomUiModel.getRoomChat().getRoom_id()){
-                            chatRoomUiModelList.get(ChatRoomsHelper.getIndexChatRoom(chatRoomUiModelList, chatRoomUiModel)).setIs_checked(false);
+                if(ChatRoomsHelper.getChatRoomClicked(roomAdapter.getData()) != null){
+                    if(ChatRoomsHelper.getIndexChatRoom(roomAdapter.getData(), chatRoomUiModel) != -1){
+                        if(ChatRoomsHelper.getChatRoomClicked(roomAdapter.getData()).getRoomChat().getRoom_id() == chatRoomUiModel.getRoomChat().getRoom_id()){
+                            roomAdapter.getData().get(ChatRoomsHelper.getIndexChatRoom(roomAdapter.getData(), chatRoomUiModel)).setIs_checked(false);
                         } else {
-                            checkTheChatRoom(ChatRoomsHelper.getIndexChatRoom(chatRoomUiModelList, chatRoomUiModel), true);
+                            checkTheChatRoom(ChatRoomsHelper.getIndexChatRoom(roomAdapter.getData(), chatRoomUiModel), true);
                         }
                         viewModel.updateChatRoomsLongPress(chatRoomUiModel);
                     }
                 } else {
-                    if(ChatRoomsHelper.getIndexChatRoom(chatRoomUiModelList, chatRoomUiModel) != -1){
-                        checkTheChatRoom(ChatRoomsHelper.getIndexChatRoom(chatRoomUiModelList, chatRoomUiModel), true);
+                    if(ChatRoomsHelper.getIndexChatRoom(roomAdapter.getData(), chatRoomUiModel) != -1){
+                        checkTheChatRoom(ChatRoomsHelper.getIndexChatRoom(roomAdapter.getData(), chatRoomUiModel), true);
                         viewModel.updateChatRoomsLongPress(chatRoomUiModel);
                     }
                 }
@@ -300,43 +298,48 @@ public class ChatRoomsFragment extends Fragment implements ChatRoomsView.View {
             }
         });
         rv.setAdapter(roomAdapter);
-
-//        obrolanPresenter.requestObrolan(true, keyword);
     }
 
     private void checkTheChatRoom(int i, boolean isOK){
-        for (int j = 0; j < chatRoomUiModelList.size(); j++) {
+        for (int j = 0; j < roomAdapter.getData().size(); j++) {
             if(j == i){
-                chatRoomUiModelList.get(j).setIs_checked(isOK);
+                roomAdapter.getData().get(j).setIs_checked(isOK);
             } else {
-                chatRoomUiModelList.get(j).setIs_checked(!isOK);
+                roomAdapter.getData().get(j).setIs_checked(!isOK);
             }
         }
     }
 
     private void uncheckTheChatRoom(boolean isOk){
-        for (int j = 0; j < chatRoomUiModelList.size(); j++) {
-            chatRoomUiModelList.get(j).setIs_checked(isOk);
+        for (int j = 0; j < roomAdapter.getData().size(); j++) {
+            roomAdapter.getData().get(j).setIs_checked(isOk);
         }
         roomAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onLoading() {
-//        helper_loading_top.show();
+        helper_noconversation.setVisibility(View.GONE);
+        helper_noconnection.setVisibility(View.GONE);
+        helper_servererror.setVisibility(View.GONE);
+        if(roomAdapter.getData().size() == 0){
+            roomAdapter.initLoading(true);
+        }
     }
 
     @Override
     public void onHideLoading() {
         helper_loading_top.hide();
-        helper_noconversation.setVisibility(View.GONE);
-        helper_noconnection.setVisibility(View.GONE);
-        helper_servererror.setVisibility(View.GONE);
+        if(roomAdapter.getData().size() == 0){
+            roomAdapter.initLoading(false);
+        } else {
+            if(swipe.isRefreshing()) swipe.setRefreshing(false);
+        }
     }
 
     @Override
     public void onErrorConnection(String message) {
-        if(chatRoomUiModelList.size()==0){
+        if(roomAdapter.getData().size()==0){
             switch (message){
                 case CODE_SERVERERROR:
                     helper_servererror.setVisibility(View.VISIBLE);
@@ -364,16 +367,9 @@ public class ChatRoomsFragment extends Fragment implements ChatRoomsView.View {
     @Override
     public void onRequestObrolan(List<ChatRoomsUiModel> list, boolean isRefresh) {
         isLoadMore = true;
-        if(isRefresh)
-            chatRoomUiModelList.clear();
-
-        for (ChatRoomsUiModel model: list){
-            chatRoomUiModelList.add(model);
-        }
-        roomAdapter.notifyDataSetChanged();
-
         helper_noconversation.setVisibility(View.GONE);
-        if(chatRoomUiModelList.size() == 0)
+        roomAdapter.addData(isRefresh, list);
+        if(roomAdapter.getData().size() == 0)
             helper_noconversation.setVisibility(View.VISIBLE);
         else
             helper_noconversation.setVisibility(View.GONE);
@@ -381,7 +377,7 @@ public class ChatRoomsFragment extends Fragment implements ChatRoomsView.View {
 
     @Override
     public void onFailedRequestObrolan() {
-        if(chatRoomUiModelList.size() == 0){
+        if(roomAdapter.getData().size() == 0){
             helper_noconversation.setVisibility(View.VISIBLE);
         }
     }

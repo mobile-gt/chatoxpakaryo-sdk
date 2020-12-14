@@ -69,7 +69,7 @@
                 android:layout_marginLeft="@dimen/dimen_8dp"
                 android:layout_marginRight="@dimen/dimen_8dp"
                 android:id="@+id/lay_chat"
-                android:background="@drawable/bubble_r"
+                android:background="@drawable/bubble_r_new"
                 android:backgroundTint="@color/colorBubbleActive"
                 android:layout_width="@dimen/chat_attachment_image_holder"
                 android:layout_height="wrap_content"

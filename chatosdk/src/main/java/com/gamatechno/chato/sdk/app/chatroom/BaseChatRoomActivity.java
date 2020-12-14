@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -177,6 +178,8 @@ public class BaseChatRoomActivity extends ChatoPermissionActivity {
     TextView tv_action_title;
 
     TextView tv_statusbar;
+
+    ProgressBar pb;
 
     TextView tvgroup_pinned_message;
 
@@ -539,6 +542,7 @@ public class BaseChatRoomActivity extends ChatoPermissionActivity {
         img_delete = findViewById(R.id.img_delete);
         tv_action_title = findViewById(R.id.tv_action_title);
         tv_statusbar = findViewById(R.id.tv_statusbar);
+        pb = findViewById(R.id.pb);
         tvgroup_pinned_message = findViewById(R.id.tvgroup_pinned_message);
         fab_down = findViewById(R.id.fab_down);
         lay_document = findViewById(R.id.lay_document);

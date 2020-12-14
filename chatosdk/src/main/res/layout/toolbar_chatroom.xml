@@ -77,7 +77,8 @@
                         android:textColor="@color/black" />
                     <TextView
                         android:visibility="gone"
-                        style="@style/Text.Standard"
+                        android:layout_marginTop="-5dp"
+                        style="@style/Text.Caption"
                         android:id="@+id/tv_statusbar"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

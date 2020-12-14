@@ -27,6 +27,17 @@ public class ChatroomHelper {
         return -1;
     }
 
+    public static String namaPanggilan(String s){
+        try{
+            if(s.split(" ").length > 0){
+                return s.split(" ")[0];
+            }
+        } catch (Exception e){
+            return s;
+        }
+        return s;
+    }
+
     public static int getIndexUnread(Context context, List<Chat> chatList){
         int user_id = ChatoUtils.getUserLogin(context).getUser_id();
         if(chatList.size() > 1)
@@ -95,7 +106,7 @@ public class ChatroomHelper {
         return val;
     }
 
-//    1 = message, 2 = attachment, 3 = multitype
+    //    1 = message, 2 = attachment, 3 = multitype
     public static int getClickedChatType(List<Chat> chatList){
         boolean isMessage = false;
         boolean isAttachment = false;

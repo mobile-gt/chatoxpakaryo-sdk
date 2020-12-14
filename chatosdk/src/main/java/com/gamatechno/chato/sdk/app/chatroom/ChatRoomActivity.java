@@ -224,7 +224,7 @@ public class ChatRoomActivity extends BaseChatRoomActivity implements ChatRoomVi
                                     " listenRoom: " + listentoRoomModel.getRoom_id());
                             if (chatRoomUiModel.getRoom_id().equals("" + listentoRoomModel.getRoom_id())) {
                                 if (isRoomAGroup(chatRoomUiModel)) {
-                                    setStatusBarRoom(listentoRoomModel.getUsername() + " sedang menulis...");
+                                    setStatusBarRoom(ChatroomHelper.namaPanggilan(listentoRoomModel.getUsername()) + " sedang menulis...");
                                 } else {
                                     setStatusBarRoom("Sedang menulis...");
                                 }
@@ -847,7 +847,7 @@ public class ChatRoomActivity extends BaseChatRoomActivity implements ChatRoomVi
             askCompactPermissions(RequiredPermissions, new PermissionResultInterface() {
                 @Override
                 public void permissionGranted() {
-                    new FileShareDialog(getContext(), new FileShareDialog.OnAction() {
+                    /*new FileShareDialog(getContext(), new FileShareDialog.OnAction() {
                         @Override
                         public void onMyDocumentSelected() {
                             startActivity(new Intent(getContext(), MyDocumentActivity.class)
@@ -856,14 +856,15 @@ public class ChatRoomActivity extends BaseChatRoomActivity implements ChatRoomVi
 
                         @Override
                         public void onInternalStorageSelected() {
-                            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-                            intent.putExtra(Intent.EXTRA_MIME_TYPES, StringConstant.mimeTypesFile);
-                            intent.setType("*/*");
-                            intent.addCategory(Intent.CATEGORY_OPENABLE);
 
-                            startActivityForResult(intent, REQUEST_CODE_ATTACHMENT);
                         }
-                    });
+                    });*/
+                    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                    intent.putExtra(Intent.EXTRA_MIME_TYPES, StringConstant.mimeTypesFile);
+                    intent.setType("*/*");
+                    intent.addCategory(Intent.CATEGORY_OPENABLE);
+
+                    startActivityForResult(intent, REQUEST_CODE_ATTACHMENT);
                 }
 
                 @Override
@@ -875,7 +876,7 @@ public class ChatRoomActivity extends BaseChatRoomActivity implements ChatRoomVi
             askCompactPermissions(RequiredPermissions, new PermissionResultInterface() {
                 @Override
                 public void permissionGranted() {
-                    new FileShareDialog(getContext(), new FileShareDialog.OnAction() {
+                    /*new FileShareDialog(getContext(), new FileShareDialog.OnAction() {
                         @Override
                         public void onMyDocumentSelected() {
                             startActivity(new Intent(getContext(), MyDocumentActivity.class)
@@ -884,9 +885,10 @@ public class ChatRoomActivity extends BaseChatRoomActivity implements ChatRoomVi
 
                         @Override
                         public void onInternalStorageSelected() {
-                            EasyImage.openGalleryVideo(ChatRoomActivity.this, 0);
+
                         }
-                    });
+                    });*/
+                    EasyImage.openGalleryVideo(ChatRoomActivity.this, 0);
                 }
 
                 @Override
@@ -1192,6 +1194,8 @@ public class ChatRoomActivity extends BaseChatRoomActivity implements ChatRoomVi
             if(unreadstate > 0){
                 rv.scrollToPosition(unreadstate);
                 fab_down.show();
+            } else {
+                rv.scrollToPosition(chatList.size()-1);
             }
         } else {
             for (Chat c: chats){
@@ -1545,6 +1549,20 @@ public class ChatRoomActivity extends BaseChatRoomActivity implements ChatRoomVi
         grouproom.setIs_pinned_message(is_pinned);
         grouproom.setPinned_message(chat);
         initPinnedMessageGroup(grouproom);
+    }
+
+    @Override
+    public void onLoadingChat() {
+        if(chatList.size() == 0){
+            pb.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onHideLoadingChat() {
+        if(chatList.size() == 0){
+            pb.setVisibility(View.GONE);
+        }
     }
 
     @Override

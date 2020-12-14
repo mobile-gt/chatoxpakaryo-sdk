@@ -10,12 +10,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:background="@color/grey_300"
-         android:layout_marginLeft="@dimen/dimen_72dp"
+        android:layout_marginLeft="@dimen/dimen_72dp"
         android:layout_alignParentBottom="true"
         android:layout_height="0.3dp">
-
     </LinearLayout>
     <RelativeLayout
+
+        android:id="@+id/adapter"
         android:layout_centerVertical="true"
         android:paddingLeft="@dimen/dimen_16dp"
         android:paddingRight="@dimen/dimen_16dp"
@@ -239,4 +240,70 @@
 
         </LinearLayout>
     </RelativeLayout>
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:visibility="gone"
+        android:id="@+id/loading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_centerVertical="true"
+            android:paddingLeft="@dimen/dimen_16dp"
+            android:paddingRight="@dimen/dimen_16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_centerVertical="true"
+                android:id="@+id/lay_1_n"
+                android:layout_width="@dimen/avatar_dimen"
+                android:layout_height="@dimen/avatar_dimen">
+                <View
+                    android:background="@drawable/circle_background_progress"
+                    app:layout_constraintVertical_bias="0.0"
+                    android:layout_marginLeft="-1dp"
+                    android:layout_width="@dimen/avatar_dimen"
+                    android:layout_height="@dimen/avatar_dimen"
+                    tools:ignore="MissingConstraints" />
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_toRightOf="@+id/lay_1_n"
+                android:id="@+id/lay_2n"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dimen_12dp"
+                android:layout_marginRight="@dimen/dimen_2dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+                <com.gamatechno.chato.sdk.utils.ChatoText.EmphasisTextView.EmphasisTextView
+                    android:layout_marginTop="5dp"
+                    style="@style/Text.Title.Thin.OneRow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="17sp"
+                    android:background="@drawable/persegi_rounded_progress"
+                    android:textColor="@color/black" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="40dp"
+                    android:layout_marginRight="40dp"
+                    android:layout_marginBottom="@dimen/dimen_4dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/avatarView"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                    app:layout_constraintVertical_bias="0.0">
+                    <com.gamatechno.chato.sdk.utils.ChatoText.EmphasisTextView.EmphasisTextView
+                        style="@style/Text.Standard.OneRow"
+                        android:layout_marginTop="@dimen/dimen_2dp"
+                        android:background="@drawable/persegi_rounded_progress"
+                        android:layout_width="@dimen/dimen_108dp"
+                        android:textColor="@color/grey_500"
+                        android:layout_height="wrap_content"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
 </RelativeLayout>

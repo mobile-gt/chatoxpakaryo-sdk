@@ -122,9 +122,9 @@ public class BaseChatViewHolder extends RecyclerView.ViewHolder{
         if(isMyChat == 1){
             ((LinearLayout.LayoutParams) params).setMargins(ChatoUtils.getDP(context, 33.0), 0, 0, 0);
             if(isRect){
-                lay_chat.setBackgroundResource(R.drawable.bubble_r_z);
+                lay_chat.setBackgroundResource(R.drawable.bubble_r_z_new);
             } else {
-                lay_chat.setBackgroundResource(R.drawable.bubble_r);
+                lay_chat.setBackgroundResource(R.drawable.bubble_r_new);
             }
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -136,9 +136,9 @@ public class BaseChatViewHolder extends RecyclerView.ViewHolder{
         } else {
             ((LinearLayout.LayoutParams) params).setMargins(0, 0, ChatoUtils.getDP(context, 33.0), 0);
             if(isRect){
-                lay_chat.setBackgroundResource(R.drawable.bubble_l_z);
+                lay_chat.setBackgroundResource(R.drawable.bubble_l_z_new);
             } else {
-                lay_chat.setBackgroundResource(R.drawable.bubble_l);
+                lay_chat.setBackgroundResource(R.drawable.bubble_l_new);
             }
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -275,9 +275,9 @@ public class BaseChatViewHolder extends RecyclerView.ViewHolder{
         if(isMyChat == 1){
             ((LinearLayout.LayoutParams) params).setMargins(ChatoUtils.getDP(context, 33.0), 0, 0, 0);
             if(isRect){
-                lay_chat.setBackgroundResource(R.drawable.bubble_r_z);
+                lay_chat.setBackgroundResource(R.drawable.bubble_r_z_new);
             } else {
-                lay_chat.setBackgroundResource(R.drawable.bubble_r);
+                lay_chat.setBackgroundResource(R.drawable.bubble_r_new);
             }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 //                lay_chat.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.colorBubble));
@@ -289,9 +289,9 @@ public class BaseChatViewHolder extends RecyclerView.ViewHolder{
         } else {
             ((LinearLayout.LayoutParams) params).setMargins(0, 0, ChatoUtils.getDP(context, 33.0), 0);
             if(isRect){
-                lay_chat.setBackgroundResource(R.drawable.bubble_l_z);
+                lay_chat.setBackgroundResource(R.drawable.bubble_l_z_new);
             } else {
-                lay_chat.setBackgroundResource(R.drawable.bubble_l);
+                lay_chat.setBackgroundResource(R.drawable.bubble_l_new);
             }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 lay_chat.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.grey_200));

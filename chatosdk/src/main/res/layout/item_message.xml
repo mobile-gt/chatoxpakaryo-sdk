@@ -71,7 +71,7 @@
                 android:layout_marginRight="@dimen/dimen_8dp"
                 android:backgroundTint="@color/grey_100"
                 android:id="@+id/lay_chat"
-                android:background="@drawable/bubble_l"
+                android:background="@drawable/bubble_l_new"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -122,6 +122,7 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:minWidth="@dimen/dimen_108dp"
+                        android:layout_marginBottom="5dp"
                         android:layout_height="wrap_content">
                         <LinearLayout
                             android:layout_width="4dp"
@@ -183,7 +184,7 @@
                         android:layout_width="wrap_content"
                         android:autoLink="phone|web"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
+
                         android:layout_marginRight="4dp"
                         android:layout_marginBottom="2dp"
                         tools:text="Ajnakjs " />

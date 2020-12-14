@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
 
-import com.gamatechno.chato.sdk.BuildConfig;
 import com.gamatechno.chato.sdk.R;
 import com.gamatechno.chato.sdk.app.chatroom.model.ChatRoomUiModel;
 import com.gamatechno.chato.sdk.app.kontakchat.KontakModel;
@@ -67,11 +66,12 @@ public class ChatRoomPresenter extends BasePresenter implements ChatRoomView.Pre
         GGFWRest.GET(api, new RequestInterface.OnGetRequest() {
             @Override
             public void onPreExecuted() {
-
+                view.onLoadingChat();
             }
 
             @Override
             public void onSuccess(JSONObject response) {
+                view.onHideLoadingChat();
                 List<Chat> chatList = new ArrayList<>();
                 try {
                     if(response.getBoolean("success")){
@@ -117,6 +117,7 @@ public class ChatRoomPresenter extends BasePresenter implements ChatRoomView.Pre
 
             @Override
             public void onFailure(String error) {
+                view.onHideLoadingChat();
                 view.onErrorConnection("");
             }
 
@@ -437,7 +438,7 @@ public class ChatRoomPresenter extends BasePresenter implements ChatRoomView.Pre
         }
         Log.d(TAG, "copyChat: "+chatList.size());
         Log.d(TAG, "copyChat: "+val);
-        clip = ClipData.newPlainText(BuildConfig.application_name, val);
+        clip = ClipData.newPlainText("chatoxpakaryo", val);
         clipboard.setPrimaryClip(clip);
         GGFWUtil.ToastShort(getContext(), getContext().getResources().getString(R.string.label_copiedchat));
     }
@@ -851,4 +852,3 @@ public class ChatRoomPresenter extends BasePresenter implements ChatRoomView.Pre
         });
     }
 }
-

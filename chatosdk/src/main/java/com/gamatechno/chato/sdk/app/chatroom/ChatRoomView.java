@@ -51,5 +51,7 @@ public interface ChatRoomView {
         void onCheckStatusRoom(String message);
         void onUpdateGroupInfo(Group group);
         void onPinMessageGroup(int is_pinned, Chat chat);
+        void onLoadingChat();
+        void onHideLoadingChat();
     }
 }

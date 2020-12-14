@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gamatechno.chato.sdk.R;
 import com.gamatechno.chato.sdk.app.chatrooms.uimodel.ChatRoomsUiModel;
 import com.gamatechno.chato.sdk.app.main.searchlist.SearchChatroomModel;
@@ -32,42 +33,46 @@ import java.util.Locale;
 public class ChatroomViewHolder extends RecyclerView.ViewHolder{
 
 
-        AvatarView avatarView;
+    AvatarView avatarView;
 
-        EmphasisTextView title;
+    EmphasisTextView title;
 
-        EmphasisTextView message;
+    EmphasisTextView message;
 
-        TextView time;
+    TextView time;
 
-        CardView card_indicator;
+    CardView card_indicator;
 
-        ImageView iv_group;
+    ImageView iv_group;
 
-        CardView card_check;
+    CardView card_check;
 
-        RelativeLayout lay_chat_rooms;
+    RelativeLayout lay_chat_rooms;
 
-        ImageView img_pinned;
+    ImageView img_pinned;
 
-        CardView card_tint;
+    CardView card_tint;
 
-        TextView tint;
+    TextView tint;
 
-        ImageView img_indicator_attachment;
+    ShimmerFrameLayout loading;
 
-        ImageView img_check;
+    RelativeLayout adapter;
 
-        Context context;
-        UserModel userModel;
+    ImageView img_indicator_attachment;
 
-        String today;
-        String labels = "";
-        String yesterday;
+    ImageView img_check;
 
-        LinearLayout lay_label;
-        CardView card_color;
-        EmphasisTextView tv_label;
+    Context context;
+    UserModel userModel;
+
+    String today;
+    String labels = "";
+    String yesterday;
+
+    LinearLayout lay_label;
+    CardView card_color;
+    EmphasisTextView tv_label;
 
     public ChatroomViewHolder(@NonNull View itemView, Context context) {
         super(itemView);
@@ -83,8 +88,15 @@ public class ChatroomViewHolder extends RecyclerView.ViewHolder{
         yesterday = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(calender.getTime());
     }
 
+    public void bindLoading(){
+        adapter.setVisibility(View.GONE);
+        loading.setVisibility(View.VISIBLE);
+    }
+
     public void bindDatas(SearchChatroomModel data) {
         ChatRoomsUiModel model = data.getChatRoomUiModel();
+        adapter.setVisibility(View.VISIBLE);
+        loading.setVisibility(View.GONE);
 
         PicassoLoader imageLoader = new PicassoLoader();
         AvatarPlaceholder refreshableAvatarPlaceholder;
@@ -134,6 +146,8 @@ public class ChatroomViewHolder extends RecyclerView.ViewHolder{
     }
 
     public void bindDatas(ChatRoomsUiModel model) {
+        adapter.setVisibility(View.VISIBLE);
+        loading.setVisibility(View.GONE);
         PicassoLoader imageLoader = new PicassoLoader();
         AvatarPlaceholder refreshableAvatarPlaceholder = new AvatarPlaceholder(model.getRoomChat().getRoom_name());
         imageLoader.loadImage(avatarView, refreshableAvatarPlaceholder, (model.getRoomChat().getRoom_photo().equals("") ? model.getRoomChat().getRoom_name() : model.getRoomChat().getRoom_photo()));
@@ -308,6 +322,8 @@ public class ChatroomViewHolder extends RecyclerView.ViewHolder{
     }
 
     private void initView(View view){
+        adapter = view.findViewById(R.id.adapter);
+        loading = view.findViewById(R.id.loading);
         avatarView = view.findViewById(R.id.avatarView);
         title = view.findViewById(R.id.title);
         message = view.findViewById(R.id.message);
