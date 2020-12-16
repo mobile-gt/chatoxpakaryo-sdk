@@ -154,7 +154,7 @@ public class ChatroomViewHolder extends RecyclerView.ViewHolder{
         title.setText(model.getRoomChat().getRoom_name());
 
         if(model.getRoomChat().getLabel_id().size() > 0){
-            lay_label.setVisibility(View.VISIBLE);
+            lay_label.setVisibility(View.GONE);
             for (int i = 0; i < model.getRoomChat().getLabel_title().size(); i++) {
 
             }

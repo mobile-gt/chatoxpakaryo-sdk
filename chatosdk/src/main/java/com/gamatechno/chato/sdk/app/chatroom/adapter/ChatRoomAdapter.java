@@ -202,9 +202,9 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             return 0;
         } else {
             if(!isMine){
-                Log.d("ChatRoomAdapter", "unreadCounter: "+chatList.get(position).getMessage_status() +" "+ (position));
+//                Log.d("ChatRoomAdapter", "unreadCounter: "+chatList.get(position).getMessage_status() +" "+ (position));
                 if(chatList.get(position).getMessage_status().equals(StringConstant.chat_status_pending) || chatList.get(position).getMessage_status().equals(StringConstant.chat_status_delivered)){
-                    Log.d("ChatRoomAdapter2", "unreadCounter: "+chatList.get(position-1).getMessage_status()+" "+ (position-1));
+//                    Log.d("ChatRoomAdapter2", "unreadCounter: "+chatList.get(position-1).getMessage_status()+" "+ (position-1));
                     if(chatList.get(position-1).getMessage_status().equals(StringConstant.chat_status_read)){
                         return (getItemCount() - position);
                     } else {

@@ -22,7 +22,7 @@
                     android:padding="@dimen/dimen_16dp"
                     android:id="@+id/img_back_search"
                     style="@style/clickable"
-                    android:src="@drawable/ic_arrow_back_black_24dp"
+                    android:src="@drawable/ic_arrow_left_primary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <RelativeLayout
@@ -47,6 +47,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"/>
                         <ImageView
+                            android:visibility="gone"
                             android:id="@+id/img_clear_search"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -136,7 +137,6 @@
                             android:gravity="center"
                             android:textSize="18sp"
                             android:fontFamily="@font/thefont"
-                            android:paddingRight="48dp"
                             android:text="Pakaryo" />
                         <ImageView
                             android:visibility="gone"

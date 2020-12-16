@@ -140,14 +140,14 @@ public class GTDownloadManager {
         createNotificationChannel();
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(mContext,CHANNEL_ID)
-                        .setSmallIcon(R.drawable.ic_logo_mini)
+                        .setSmallIcon(R.drawable.ic_logo)
                         .setContentTitle(request.getFileName())
                         .setContentText(status)
                         .setGroup(GROUP_GTDOWNLOADER);
 
         Notification summaryNotification =
                 new NotificationCompat.Builder(mContext,CHANNEL_ID)
-                        .setSmallIcon(R.drawable.ic_logo_mini)
+                        .setSmallIcon(R.drawable.ic_logo)
                         .setGroup(GROUP_GTDOWNLOADER)
                         .setGroupSummary(true)
                         .build();

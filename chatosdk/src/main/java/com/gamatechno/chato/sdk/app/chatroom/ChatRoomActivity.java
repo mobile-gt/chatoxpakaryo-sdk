@@ -38,7 +38,6 @@ import com.gamatechno.chato.sdk.R;
 import com.gamatechno.chato.sdk.app.broadcastdirect.kontakbroadcast.ContactBroadcastActivity;
 import com.gamatechno.chato.sdk.app.chatinfo.DialogChatInfo;
 import com.gamatechno.chato.sdk.app.chatinfo.groupchatinfo.GroupChatInfoDialog;
-import com.gamatechno.chato.sdk.app.chatroom.dialog.FileShareDialog;
 import com.gamatechno.chato.sdk.app.chatroom.menu.MenuAdapter;
 import com.gamatechno.chato.sdk.app.chatroom.menu.MenuModel;
 import com.gamatechno.chato.sdk.app.chatroom.model.ChatListModel;
@@ -52,8 +51,6 @@ import com.gamatechno.chato.sdk.app.grouproomdetail.GroupInfoActivity;
 import com.gamatechno.chato.sdk.app.kontakchat.KontakChatDialog;
 import com.gamatechno.chato.sdk.app.kontakchat.KontakModel;
 
-import com.gamatechno.chato.sdk.app.filesharing.MyDocumentActivity;
-import com.gamatechno.chato.sdk.app.main.ChatoActivity;
 import com.gamatechno.chato.sdk.app.photopreview.ImageViewActivity;
 import com.gamatechno.chato.sdk.app.pinnedgroupmessage.PinnedGroupMessageDialog;
 import com.gamatechno.chato.sdk.app.playvideo.PlayVideoActivity;
@@ -143,29 +140,21 @@ public class ChatRoomActivity extends BaseChatRoomActivity implements ChatRoomVi
                 adapter.notifiyListChanged();
             } else if(action.equals(StringConstant.broadcast_receive_chat)){
                 Chat chat = (Chat) intent.getSerializableExtra("data");
-
-                if(chatList.size()>0){
+                sendStatusReadMessage(chat);
+                /*if(chatList.size()>0){
                     if(chat.getMessage_id() != chatList.get(chatList.size()-1).getMessage_id()){
                         chatList.add(chat);
                         adapter.notifyDataSetChanged();
                         rv.scrollToPosition(chatList.size()-1);
-
-                        List<Chat> chats = new ArrayList<>();
-                        chats.add(chat);
-                        presenter.sendStatusMessage(getListWithNoStatus(chats, StringConstant.chat_status_read));
                         setStatusOnList(StringConstant.chat_status_read);
                     }
                 } else {
-                    chatList.add(chat);
-                    adapter.notifyDataSetChanged();
-                    rv.scrollToPosition(chatList.size()-1);
 
-                    List<Chat> chats = new ArrayList<>();
-                    chats.add(chat);
-                    presenter.sendStatusMessage(getListWithNoStatus(chats, StringConstant.chat_status_read));
-                    setStatusOnList(StringConstant.chat_status_read);
-                }
-
+                }*/
+                chatList.add(chat);
+                adapter.notifyDataSetChanged();
+                rv.scrollToPosition(chatList.size()-1);
+                setStatusOnList(StringConstant.chat_status_read);
             } else if(action.equals(StringConstant.broadcast_listen_to_room)){
                 if(chatRoomUiModel.getType().equals(RoomChat.official_room_type)){
                     setStatusBarRoom("Official Group");
@@ -722,7 +711,7 @@ public class ChatRoomActivity extends BaseChatRoomActivity implements ChatRoomVi
         menuModels.add(new MenuModel(R.drawable.ic_star_full, "Pesan Berbintang", () -> {
             startActivityForResult(new Intent(getContext(), StarredMessageActivity.class).putExtra("room", chatRoomUiModel), REQUEST_STAR_MESSAGES);
         }));
-        menuModels.add(new MenuModel(R.drawable.ic_search, "Cari", () -> {
+        menuModels.add(new MenuModel(R.drawable.ic_chato_search, "Cari", () -> {
             appbar_action.show();
             isAppBarShow = true;
             appbar_action.displaying(lay_searchbar);
@@ -1354,6 +1343,14 @@ public class ChatRoomActivity extends BaseChatRoomActivity implements ChatRoomVi
         return val;
     }
 
+    private void sendStatusReadMessage(Chat chat){
+        Log.d(TAG, "readMessage: " + chat.getMessage_text());
+        List<Chat> chats = new ArrayList<>();
+        chat.setMessage_status(StringConstant.chat_status_read);
+        chats.add(chat);
+        presenter.sendStatusMessage(chats);
+    }
+
     private void prepareToSendMessage(){
         Chat ch = null;
         switch (TYPE_ATTACHMENT){
@@ -1439,9 +1436,10 @@ public class ChatRoomActivity extends BaseChatRoomActivity implements ChatRoomVi
         super.onStop();
         Log.d(TAG, "onStop: here i'm");
 
-        if(GGFWUtil.getStringFromSP(getContext(), Preferences.OPENED_CHATROOM_ID).equals(chatRoomUiModel.getRoom_id())){
+        /*if(GGFWUtil.getStringFromSP(getContext(), Preferences.OPENED_CHATROOM_ID).equals(chatRoomUiModel.getRoom_id())){
             GGFWUtil.setStringToSP(getContext(), Preferences.CHATROOM_STATE, StringConstant.chatroom_state_close);
-        }
+        }*/
+        GGFWUtil.setStringToSP(getContext(), Preferences.CHATROOM_STATE, StringConstant.chatroom_state_close);
         try {
             unregisterReceiver(receiver);
         } catch(IllegalArgumentException e) {
@@ -1454,6 +1452,10 @@ public class ChatRoomActivity extends BaseChatRoomActivity implements ChatRoomVi
     protected void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "onDestroy: here i'm");
+        /*if(GGFWUtil.getStringFromSP(getContext(), Preferences.OPENED_CHATROOM_ID).equals(chatRoomUiModel.getRoom_id())){
+            GGFWUtil.setStringToSP(getContext(), Preferences.CHATROOM_STATE, StringConstant.chatroom_state_close);
+        }*/
+        GGFWUtil.setStringToSP(getContext(), Preferences.CHATROOM_STATE, StringConstant.chatroom_state_close);
     }
 
     @Override

@@ -21,6 +21,7 @@ import com.gamatechno.chato.sdk.utils.ChatoNotification.ChatoNotification;
 import com.gamatechno.chato.sdk.utils.ChatoUtils;
 import com.gamatechno.ggfw.utils.GGFWUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -244,7 +245,15 @@ public class ChatoService extends Service implements ChatoServiceView.View, Chat
                 sendBroadcast(new Intent(StringConstant.broadcast_refresh_chat));
             }
         }
+        sendStatusMessage(chat);
+    }
 
+    private void sendStatusMessage(Chat chat){
+        Log.d(TAG, "deliveredStatus: " + chat.getMessage_text());
+        List<Chat> chats = new ArrayList<>();
+        chat.setMessage_status(StringConstant.chat_status_delivered);
+        chats.add(chat);
+        chatServicePresenter.sendStatusMessage(chats);
     }
 
     @Override

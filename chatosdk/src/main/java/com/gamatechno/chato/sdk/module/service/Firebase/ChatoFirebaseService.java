@@ -77,6 +77,8 @@ public class ChatoFirebaseService extends FirebaseMessagingService {
 
     private void showPushNotification(RoomChat roomChat){
         if(!GGFWUtil.getStringFromSP(context, Preferences.CHATROOM_STATE).equals(StringConstant.chatroom_state_open)){
+            Log.d(TAG, "is " + roomChat.getDetail_last_message().getFrom_username() + " checkusername:" + ChatoUtils.getUserLogin(context).getUser_name() +
+                    " Chatroom_state:" + GGFWUtil.getStringFromSP(context, Preferences.CHATROOM_STATE));
             if(!roomChat.getDetail_last_message().getFrom_username().equals(ChatoUtils.getUserLogin(context).getUser_name())) {
                 chatoNotification.showPersonChatNotif(roomChat);
                 Chat chat = roomChat.getDetail_last_message();
@@ -112,6 +114,7 @@ public class ChatoFirebaseService extends FirebaseMessagingService {
                 if(chat.getFrom_user_id() != ChatoUtils.getUserLogin(context).getUser_id()){
 //                    sendStatusReceiveMessage(chat);
                     context.sendBroadcast(new Intent(StringConstant.broadcast_receive_chat).putExtra("data", chat));
+
                 }if(chat.getMessage_type_num() == StringConstant.type_item_label){
                     switch (chat.getMessage_action()){
                         case "ADD":

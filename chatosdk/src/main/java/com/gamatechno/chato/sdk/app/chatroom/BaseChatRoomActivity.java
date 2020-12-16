@@ -381,9 +381,9 @@ public class BaseChatRoomActivity extends ChatoPermissionActivity {
         card_bar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(isFinishNeedtoIn){
+                /*if(isFinishNeedtoIn){
                     startActivity(new Intent(getContext(), ChatoActivity.class));
-                }
+                }*/
                 finish();
                 ChatoBaseApplication.getInstance().cancelPendingChatoRequest();
             }
