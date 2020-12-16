@@ -13,7 +13,7 @@
         <activity
             android:theme="@style/AppTheme.NoActionBar"
             android:name=".app.main.ChatoActivity"
-            android:launchMode = "singleInstance"
+            android:launchMode = "singleTop"
             android:screenOrientation="portrait" />
         <activity
             android:theme="@style/AppTheme.NoActionBar"
@@ -40,7 +40,7 @@
             android:theme="@style/Base.Theme.AppCompat" />
         <activity
             android:theme="@style/AppTheme.NoActionBar"
-            android:launchMode = "singleInstance"
+            android:launchMode = "singleTop"
             android:name=".app.chatroom.ChatRoomActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".app.photopreview.ImageViewActivity"
