@@ -27,6 +27,8 @@ import androidx.appcompat.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -234,6 +236,11 @@ public class ChatoActivity extends ChatoPermissionActivity implements ChatView.V
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(!charSequence.toString().equals("")){
+                    img_clear_search.setVisibility(View.VISIBLE);
+                } else {
+                    img_clear_search.setVisibility(View.GONE);
+                }
                 if(isSearchh){
                     timer.cancel();
                     timer = new Timer();
@@ -321,7 +328,11 @@ public class ChatoActivity extends ChatoPermissionActivity implements ChatView.V
         } else if (id == R.id.img_label){
             chatRoomsViewModel.updateLabel(true);
         } else if (id == R.id.img_clear_search){
-            edt_search.setText("");
+            if(edt_search.getText().toString().equals("")){
+                showOrHideTopView(true, false);
+            } else {
+                edt_search.setText("");
+            }
         }
     }
 
@@ -537,6 +548,12 @@ public class ChatoActivity extends ChatoPermissionActivity implements ChatView.V
                 });
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_search, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
