@@ -6,7 +6,7 @@ public class UserModel {
     String user_email = "";
     String user_username;
     String user_photo;
-    String access_token;
+    String access_token = "";
     String refresh_token;
     String token_iat;
     String token_exp;

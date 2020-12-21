@@ -8,6 +8,7 @@ import com.gamatechno.chato.sdk.data.model.UserModel
 import com.gamatechno.chato.sdk.utils.ChatoUtils
 import com.gamatechno.ggfw.utils.GGFWUtil
 import com.google.gson.Gson
+import java.lang.Exception
 
 class ChatoSDKMapper {
     companion object {
@@ -23,6 +24,23 @@ class ChatoSDKMapper {
                 userModel = UserModel(token, refreshToken)
             }
             ChatoUtils.setUserLogin(context, userModel)
+        }
+
+        fun isTokenSet(context : Context) : Boolean{
+            if(GGFWUtil.getStringFromSP(context, Preferences.USER_LOGIN).equals("")){
+                return false
+            } else {
+                val userModel = Gson().fromJson(GGFWUtil.getStringFromSP(context, Preferences.USER_LOGIN), UserModel::class.java)
+                try{
+                    if(userModel.access_token.equals("-")){
+                        return false
+                    } else {
+                        return true
+                    }
+                } catch (e : Exception){
+                    return false
+                }
+            }
         }
 
         fun setCustomer(context : Context, cust_secret : String, cust_app_id : String){
@@ -62,8 +80,8 @@ class ChatoSDKMapper {
             ChatoUtils.setUserLogin(context, userModel)
         }
         fun logout(context: Context){
-            GGFWUtil.setStringToSP(context, "", Preferences.CUSTOMER_INFO)
-            GGFWUtil.setStringToSP(context, "", Preferences.USER_LOGIN)
+            GGFWUtil.setStringToSP(context, Preferences.CUSTOMER_INFO, "")
+            GGFWUtil.setStringToSP(context, Preferences.USER_LOGIN, "")
         }
     }
 }

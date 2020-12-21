@@ -32,7 +32,7 @@ class ChatPresenter(context: Context, val view: ChatView.View?) : BasePresenter(
                         val list: MutableList<SearchChatroomModel> = ArrayList<SearchChatroomModel>()
                         //                        List<ChatRoomsUiModel> models = new ArrayList<>();
                         val result = response.getJSONObject("result")
-                        val list_user = result.getJSONArray("user")
+                        val list_user = result.getJSONArray("room")
                         for (i in 0 until list_user.length()) {
                             val searchChatroomModel = SearchChatroomModel(SearchChatroomModel.chatroom_type, keyword)
                             val chatRoomUiModel = ChatRoomsUiModel(getGson().fromJson(list_user[i].toString(), RoomChat::class.java))
