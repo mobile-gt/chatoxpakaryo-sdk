@@ -57,6 +57,7 @@ import com.gamatechno.chato.sdk.app.playvideo.PlayVideoActivity;
 import com.gamatechno.chato.sdk.app.playvideo.sendvideopreview.VideoPreviewActivity;
 import com.gamatechno.chato.sdk.app.starredmessage.StarredMessageActivity;
 import com.gamatechno.chato.sdk.data.DAO.Chat.Chat;
+import com.gamatechno.chato.sdk.data.DAO.Chat.NotifChat;
 import com.gamatechno.chato.sdk.data.DAO.Chat.dbaccess.NotifChatDatabase;
 import com.gamatechno.chato.sdk.data.DAO.Group.Group;
 import com.gamatechno.chato.sdk.data.DAO.RoomChat.RoomChat;
@@ -141,19 +142,9 @@ public class ChatRoomActivity extends BaseChatRoomActivity implements ChatRoomVi
             } else if(action.equals(StringConstant.broadcast_receive_chat)){
                 Chat chat = (Chat) intent.getSerializableExtra("data");
                 sendStatusReadMessage(chat);
-                /*if(chatList.size()>0){
-                    if(chat.getMessage_id() != chatList.get(chatList.size()-1).getMessage_id()){
-                        chatList.add(chat);
-                        adapter.notifyDataSetChanged();
-                        rv.scrollToPosition(chatList.size()-1);
-                        setStatusOnList(StringConstant.chat_status_read);
-                    }
-                } else {
-
-                }*/
                 chatList.add(chat);
                 adapter.notifyDataSetChanged();
-                rv.scrollToPosition(chatList.size()-1);
+                willShowUnreadNum(chat);
                 setStatusOnList(StringConstant.chat_status_read);
             } else if(action.equals(StringConstant.broadcast_listen_to_room)){
                 if(chatRoomUiModel.getType().equals(RoomChat.official_room_type)){
@@ -513,6 +504,7 @@ public class ChatRoomActivity extends BaseChatRoomActivity implements ChatRoomVi
 
         rv.setLayoutManager(layoutManager);
         chatList = new ArrayList<>();
+        chatList_temp = new ArrayList<>();
         adapter = new ChatRoomAdapter(getContext(), chatList, new ChatRoomAdapter.OnChatRoomClick() {
             @Override
             public void onLongPress(View view, int position) {
@@ -631,6 +623,7 @@ public class ChatRoomActivity extends BaseChatRoomActivity implements ChatRoomVi
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 if(!rv.canScrollVertically(1)){
                     fab_down.hide();
+                    initNumUnread(false);
                 } else {
                     if (dy < 0 && fab_down.getVisibility() == View.GONE) {
                         fab_down.show();
@@ -648,6 +641,7 @@ public class ChatRoomActivity extends BaseChatRoomActivity implements ChatRoomVi
         fab_down.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                initNumUnread(false);
                 rv.scrollToPosition(chatList.size()-1);
                 fab_down.hide();
             }
@@ -1409,15 +1403,46 @@ public class ChatRoomActivity extends BaseChatRoomActivity implements ChatRoomVi
         registerReceiver(receiver, filter);
         GGFWUtil.setStringToSP(getContext(), Preferences.CHATROOM_STATE, StringConstant.chatroom_state_open);
 
-        Log.d(TAG, "room id: " + chatRoomUiModel.getRoom_id());
-        chatNotifDatabase.deleteNotifbyRoomId(chatRoomUiModel.getRoom_id());
+        if(chatList.size() > 0){
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Log.d(TAG, "run: "+chatRoomUiModel.getRoom_id());
+                    List<NotifChat> unreadNotif = chatNotifDatabase.getNotifbyRoomid(chatRoomUiModel.getRoom_id());
+                    Log.d(TAG, "run: "+unreadNotif.size());
+                    if(unreadNotif.size() > 0){
+                        sendBroadcast(new Intent(StringConstant.chatroom_state_close_notif).putExtra("data", chatRoomUiModel.getUser_id()));
+                        List<Chat> unreadChat = new ArrayList<>();
+                        for(int i = 0; i < unreadNotif.size(); i++){
+                            NotifChat notifChat = unreadNotif.get(i);
+                            notifChat.setMessage_status(StringConstant.chat_status_read);
+                            unreadChat.add(notifChat);
+                            unreadNotif.get(i).setMessage_status(StringConstant.chat_status_delivered);
+                            chatList.add(unreadNotif.get(i));
+                        }
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                willShowUnreadNum(unreadChat);
+                                adapter.notifyDataSetChanged();
+                                presenter.sendStatusMessage(unreadChat);
+//                                setStatusOnList(StringConstant.chat_status_read);
+                            }
+                        });
+                        chatNotifDatabase.deleteNotifbyRoomId(chatRoomUiModel.getRoom_id());
+                    }
+                }
+            }).start();
+        } else {
+            Log.d(TAG, "room id: " + chatRoomUiModel.getRoom_id());
+            chatNotifDatabase.deleteNotifbyRoomId(chatRoomUiModel.getRoom_id());
+        }
+
         if(isRoomAGroup(chatRoomUiModel)){
             presenter.getUpdatedGroupInfo(chatRoomUiModel);
         }
 
-        Log.d(TAG, "onResume: here i'm "+GGFWUtil.getStringFromSP(getContext(), Preferences.CHATROOM_ID_FROM_NOTIF)+" - "+chatRoomUiModel.getUser_id());
         if(GGFWUtil.getStringFromSP(getContext(), Preferences.CHATROOM_ID_FROM_NOTIF).equals(chatRoomUiModel.getUser_id())){
-            Log.d(TAG, "onResume: here i'm isTrue");
             requestHistory(chatRoomUiModel.getUser_id(), ""+ ChatoUtils.getUserLogin(getContext()).getUser_id(), true);
             sendBroadcast(new Intent(StringConstant.chatroom_state_close_notif).putExtra("data", chatRoomUiModel.getUser_id()));
         }

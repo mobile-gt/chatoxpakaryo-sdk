@@ -71,125 +71,63 @@ public class BaseChatRoomActivity extends ChatoPermissionActivity {
 
 
     ImageView img_replied_message;
-
     AnimationToggle container_reply;
-
     AnimationToggle container_pinned_message;
-
     TextView tv_replied_title;
-
     TextView tv_replied_message;
-
     ImageView img_replied_close;
-
-
-    RelativeLayout lay_actionbar;
-
+    RelativeLayout lay_actionbar, fab_num;
     RelativeLayout lay_searchbar;
-
     ConstraintLayout lay_action_chat;
-
     RelativeLayout lay_no_action_chat;
-
-    TextView tv_no_action_chat;
-
-
+    TextView tv_no_action_chat, tv_num;
     AnimationToggle lay_action_attachment;
-
     AnimationToggle lay_action;
-
     ImageView img_attachment_close;
-
     ImageView img_close_pinnedchat;
-
     ImageView img_attachment;
-
     RelativeLayout lay_attachment;
-
     ChatEditText edt_message;
-
     EditText edt_search;
-
     ImageView img_emoticon;
-
     ImageView img_camera;
-
     ImageView img_send;
-
     ImageView img_attach;
-
     TextView tv_attachment;
-
     RecyclerView rv;
-
     LinearLayout lay_detail_room;
-
     LinearLayout lay_menu_attach;
-    //    ================================================================================================================================================
     LinearLayout lay_document;
-
     LinearLayout lay_gallery;
-
     LinearLayout lay_record_video;
-
     RelativeLayout lay_menu;
-
     RecyclerView menu_list;
-
     Toolbar toolbar;
-
     AvatarView img_profile;
-
     ImageView img_back;
-
     LinearLayout lay_back;
-
     CardView card_bar;
-
     TextView txt_title;
-
     RelativeLayout lay_toolbar;
-
-
     AnimationToggle helper_loading_top;
-
     TextView tv_loading_top;
-
-    //    Appbar component
-
     AnimationToggle appbar_action;
-
     ImageView img_action_back;
-
     ImageView img_forward;
-
     ImageView img_info;
-
     ImageView img_pinmessage;
-
     ImageView img_copy;
-
     ImageView img_reply;
-
     ImageView img_star;
-
     ImageView img_delete;
-
     TextView tv_action_title;
-
     TextView tv_statusbar;
-
     ProgressBar pb;
-
     TextView tvgroup_pinned_message;
-
     FloatingActionButton fab_down;
-
     Chat chat_reply, chat_forward;
     EmojIconActions  emojIcon;
-
     Loading loading;
-
     List<ImageView> list_actionAppbar;
 
     String TAG = BaseChatRoomActivity.class.getName();
@@ -198,7 +136,8 @@ public class BaseChatRoomActivity extends ChatoPermissionActivity {
     Boolean is_reply = false;
 
     ChatRoomUiModel chatRoomUiModel;
-    List<Chat> chatList;
+    List<Chat> chatList = new ArrayList<>();
+    List<Chat> chatList_temp = new ArrayList<>();
 
     boolean isFinishNeedtoIn = false;
     Group grouproom;
@@ -326,6 +265,34 @@ public class BaseChatRoomActivity extends ChatoPermissionActivity {
         if(!closed){
             container_reply.hide();
             is_reply = false;
+        }
+    }
+
+    protected void initNumUnread(Boolean willShow){
+        if(!willShow){
+            chatList_temp.clear();
+            fab_num.setVisibility(View.GONE);
+        } else {
+            tv_num.setText(""+chatList_temp.size());
+            fab_num.setVisibility(View.VISIBLE);
+        }
+    }
+
+    protected void willShowUnreadNum(Chat chat){
+        if(!fab_down.isShown()){
+            rv.scrollToPosition(chatList.size()-1);
+        } else {
+            chatList_temp.add(chat);
+            initNumUnread(true);
+        }
+    }
+
+    protected void willShowUnreadNum(List<Chat> chats){
+        if(!fab_down.isShown()){
+            rv.scrollToPosition(chatList.size()-1);
+        } else {
+            chatList_temp.addAll(chats);
+            initNumUnread(true);
         }
     }
 
@@ -551,5 +518,7 @@ public class BaseChatRoomActivity extends ChatoPermissionActivity {
         tv_no_action_chat = findViewById(R.id.tv_no_action_chat);
         lay_menu = findViewById(R.id.ll_menu);
         menu_list = findViewById(R.id.menu_list);
+        tv_num = findViewById(R.id.tv_num);
+        fab_num = findViewById(R.id.fab_num);
     }
 }

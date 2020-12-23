@@ -280,7 +280,7 @@
                     style="@style/Text.Title.Thin.OneRow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/dimen_10dp"
                     android:background="@drawable/persegi_rounded_progress"
                     android:textColor="@color/black" />
                 <LinearLayout

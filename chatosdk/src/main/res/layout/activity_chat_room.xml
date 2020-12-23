@@ -387,6 +387,7 @@
                         android:scaleType="fitCenter"
                         android:src="@drawable/ic_rekam_video"/>
                     <TextView
+                        android:textAlignment="center"
                         style="@style/Text.Standard"
                         android:text="Rekam Video"
                         android:layout_marginTop="5dp"
@@ -395,19 +396,43 @@
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:visibility="gone"
-            app:fabSize="mini"
-            android:layout_above="@+id/container_reply"
-            android:tint="@color/white"
-            android:id="@+id/fab_down"
-            app:backgroundTint="@color/colorPrimary"
-            android:layout_alignParentRight="true"
-            android:layout_margin="@dimen/dimen_8dp"
+        <RelativeLayout
             android:layout_width="wrap_content"
-            app:maxImageSize="@dimen/dimen_16dp"
-            android:src="@drawable/ic_icon_floating_down"
-            android:layout_height="wrap_content" />
+            android:layout_above="@+id/container_reply"
+            android:layout_alignParentRight="true"
+            android:layout_height="wrap_content">
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                app:fabSize="mini"
+                android:tint="@color/white"
+                android:id="@+id/fab_down"
+                android:visibility="gone"
+                android:stateListAnimator="@null"
+                app:backgroundTint="@color/colorPrimary"
+                android:layout_margin="@dimen/dimen_8dp"
+                android:layout_width="wrap_content"
+                app:maxImageSize="@dimen/dimen_16dp"
+                android:src="@drawable/ic_icon_floating_down"
+                android:layout_height="wrap_content" />
+            <RelativeLayout
+                android:visibility="gone"
+                android:layout_marginLeft="@dimen/dimen_6dp"
+                android:id="@+id/fab_num"
+                android:elevation="6dp"
+                android:background="@drawable/bg_circle_red"
+                android:padding="2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_num"
+                    android:textColor="@color/white"
+                    style="@style/Text.Caption"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:text="1"
+                    android:layout_height="wrap_content"/>
+            </RelativeLayout>
+        </RelativeLayout>
         <include layout="@layout/layout_helper"/>
         <include layout="@layout/dialog_menu_chatroom"/>
     </RelativeLayout>
