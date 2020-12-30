@@ -117,6 +117,7 @@ public class ChatRoomActivity extends BaseChatRoomActivity implements ChatRoomVi
 
     String file_attachment = "";
     Bitmap thumb_file_attachment = null;
+    String duration_file_attachment = "";
     IntentFilter filter;
 
     KontakChatDialog kontakChatDialog;
@@ -1010,14 +1011,16 @@ public class ChatRoomActivity extends BaseChatRoomActivity implements ChatRoomVi
             }
             lay_menu_attach.setVisibility(View.GONE);
         } else if(requestCode == PREPARE_SEND_VIDEO){
-            TYPE_ATTACHMENT = VIDEO_FILE;
-            if(resultCode==100 && data!=null) {
+            if(resultCode == 100 && data!=null) {
+                TYPE_ATTACHMENT = VIDEO_FILE;
                 edt_message.setText(data.getStringExtra("text"));
                 file_attachment = IOUtils.convertToBase64(IOUtils.getInputStream(getContext(), data.getData()));
                 fileModel = new FileModel(data.getData().toString(), FilePath.getMimeType(getContext(), data.getData()), data.getStringExtra("videoName"));
 //                    Log.d(TAG, "onPrepareVideoToSend: " + videoPreview.getUri() + " - " + videoPreview.getRealUri().getPath());
                 thumb_file_attachment = ThumbnailUtils.createVideoThumbnail(data.getData().getPath(), MediaStore.Video.Thumbnails.MINI_KIND);
+                duration_file_attachment = ""+ChatoUtils.getVideoDuration(getContext(), Uri.parse(data.getData().getPath()));
                 Log.d(TAG, "onPrepareVideoToSend: " + thumb_file_attachment);
+                Log.d(TAG, "onPrepareVideoToSend duration: " + duration_file_attachment);
                 prepareToSendMessage();
             }
             lay_menu_attach.setVisibility(View.GONE);
@@ -1363,7 +1366,7 @@ public class ChatRoomActivity extends BaseChatRoomActivity implements ChatRoomVi
 //                IOUtils.savefile(fileModel.getUri(), Chat.chat_type_file);
                 break;
             case VIDEO_FILE:
-                ch = new Chat(ChatoUtils.getUserLogin(getContext()).getUser_id(), Integer.valueOf(chatRoomUiModel.getUser_id()), edt_message.getText().toString(), Chat.chat_type_video, file_attachment,  StringConstant.chat_status_sending, ""+chatList.size(), fileModel, chatRoomUiModel.getRoom_id(), GGFWUtil.convertToBase64(thumb_file_attachment), chatRoomUiModel.getRoom_code());
+                ch = new Chat(ChatoUtils.getUserLogin(getContext()).getUser_id(), Integer.valueOf(chatRoomUiModel.getUser_id()), edt_message.getText().toString(), Chat.chat_type_video, file_attachment,  StringConstant.chat_status_sending, ""+chatList.size(), fileModel, chatRoomUiModel.getRoom_id(), GGFWUtil.convertToBase64(thumb_file_attachment), duration_file_attachment, chatRoomUiModel.getRoom_code());
                 ch.setVideoDownloding(true);
                 ch.setUri_attachment(fileModel.getUri().toString());
                 ch.setMessage_attachment_name(fileModel.getNamefile());

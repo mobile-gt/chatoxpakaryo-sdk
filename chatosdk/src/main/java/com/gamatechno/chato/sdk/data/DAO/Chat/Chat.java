@@ -74,6 +74,9 @@ public class Chat implements Serializable {
     String thumb_video;
 
     @Ignore
+    String duration;
+
+    @Ignore
     String last_time;
 
     @Ignore
@@ -96,6 +99,14 @@ public class Chat implements Serializable {
 
     @Ignore
     String message_action = "";
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
 
     public String getMessage() {
         return message;
@@ -232,11 +243,12 @@ public class Chat implements Serializable {
     }
 
     @Ignore
-    public Chat(int from_user_id, int to_user_id, String message_text, String message_type, String message_attachment, String message_status, String payload, FileModel fileModel, String room_id, String thumb_video, String from) {
+    public Chat(int from_user_id, int to_user_id, String message_text, String message_type, String message_attachment, String message_status, String payload, FileModel fileModel, String room_id, String thumb_video, String duration, String from) {
         this.from_user_id = from_user_id;
         this.to_user_id = to_user_id;
         this.message_text = message_text;
         this.thumb_video = thumb_video;
+        this.duration = duration;
         this.message_type = message_type;
         this.message_attachment = message_attachment;
         this.message_status = message_status;

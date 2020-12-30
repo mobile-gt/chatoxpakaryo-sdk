@@ -256,7 +256,7 @@ class RoomBroadcastActivity : BaseRoomBroadcastActivity(), View.OnClickListener,
                 ch.uri_attachment = fileModel!!.uri.toString()
             }
             VIDEO_FILE -> {
-                ch = Chat(ChatoUtils.getUserLogin(context).user_id, 0, edt_message.text.toString(), Chat.chat_type_video, file_attachment, StringConstant.chat_status_sending, "" + chatList!!.size, fileModel, "", GGFWUtil.convertToBase64(thumb_file_attachment), "")
+                ch = Chat(ChatoUtils.getUserLogin(context).user_id, 0, edt_message.text.toString(), Chat.chat_type_video, file_attachment, StringConstant.chat_status_sending, "" + chatList!!.size, fileModel, "", GGFWUtil.convertToBase64(thumb_file_attachment), "", "")
                 ch!!.isVideoDownloding = true
                 ch.uri_attachment = fileModel!!.uri.toString()
                 ch.message_attachment_name = fileModel!!.namefile

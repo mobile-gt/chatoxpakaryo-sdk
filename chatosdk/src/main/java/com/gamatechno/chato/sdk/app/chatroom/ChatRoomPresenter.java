@@ -282,6 +282,7 @@ public class ChatRoomPresenter extends BasePresenter implements ChatRoomView.Pre
                 }
                 if(chat.getMessage_type().equals(Chat.chat_type_video)){
                     params.put("message_file_thumbnail", ""+chat.getThumb_video());
+                    params.put("message_file_duration", ""+chat.getDuration());
                 }
                 return params;
             }

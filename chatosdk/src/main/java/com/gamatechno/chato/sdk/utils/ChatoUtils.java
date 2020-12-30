@@ -2,6 +2,7 @@ package com.gamatechno.chato.sdk.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.Build;
 import android.text.TextUtils;
@@ -27,6 +28,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+import static android.media.MediaMetadataRetriever.METADATA_KEY_DURATION;
 import static com.gamatechno.chato.sdk.module.request.GGFWRest.CODE_NETWORKERROR;
 import static com.gamatechno.chato.sdk.module.request.GGFWRest.CODE_NOCONNECTIONERROR;
 import static com.gamatechno.chato.sdk.module.request.GGFWRest.CODE_SERVERERROR;
@@ -172,7 +174,7 @@ public class ChatoUtils {
     }
 
     public static void setUserLogin(Context context, UserModel userModel){
-                GGFWUtil.setStringToSP(context, Preferences.USER_LOGIN, gson.toJson(userModel));
+        GGFWUtil.setStringToSP(context, Preferences.USER_LOGIN, gson.toJson(userModel));
     }
 
     public static UserModel getUserLogin(Context context){
@@ -236,4 +238,26 @@ public class ChatoUtils {
         return isValid;
     }
 
+    public static String getVideoDuration(Context context, Uri uri){
+        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+        retriever.setDataSource(context, uri);
+        String duration = retriever.extractMetadata(METADATA_KEY_DURATION);
+        retriever.release();
+
+        if(duration == null){
+            return ""+0;
+        } else {
+            try {
+                Double parse = Double.parseDouble(duration)/1000;
+//                return Integer.parseInt(""+parse);
+                if((""+parse).split("\\.").length > 0){
+                    return (""+parse).split("\\.")[0];
+                } else {
+                    return ""+parse;
+                }
+            } catch (Exception e){
+                return ""+0;
+            }
+        }
+    }
 }
