@@ -9,7 +9,7 @@
         android:clickable="true"
         android:text="Test filter item"
         style="@style/Text.Standard"
-        android:layout_margin="@dimen/space_5"
+        android:layout_margin="5dp"
         android:paddingLeft="@dimen/dimen_16dp"
         android:paddingRight="@dimen/dimen_16dp"
         android:paddingTop="@dimen/dimen_2dp"

@@ -44,7 +44,7 @@
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rv_filter"
                             android:layout_width="match_parent"
-                            android:layout_marginLeft="@dimen/space_5"
+                            android:layout_marginLeft="5dp"
                             android:scrollbarAlwaysDrawHorizontalTrack="true"
                             android:scrollbarSize="2dp"
                             android:scrollbarStyle="insideInset"
