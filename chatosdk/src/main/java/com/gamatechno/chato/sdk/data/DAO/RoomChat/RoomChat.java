@@ -33,6 +33,7 @@ public class RoomChat implements Serializable {
     private String last_message;
     private String last_date;
     private String last_time;
+    private String room_category;
     private int is_pined;
     private int is_admin = 0;
     private int unread_message;
@@ -42,6 +43,14 @@ public class RoomChat implements Serializable {
     private List<String> label_id = new ArrayList();
     private List<String> label_title = new ArrayList();
     private List<String> label_color = new ArrayList();
+
+    public String getRoom_category() {
+        return room_category;
+    }
+
+    public void setRoom_category(String room_category) {
+        this.room_category = room_category;
+    }
 
     @Ignore
     private Chat detail_last_message;

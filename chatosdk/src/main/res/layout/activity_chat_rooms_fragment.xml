@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent"
     tools:context=".app.chatrooms.ChatRoomsFragment">
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -12,12 +13,57 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv"
+            <LinearLayout
                 android:layout_width="match_parent"
+                android:orientation="vertical"
                 android:layout_height="match_parent">
-
-            </androidx.recyclerview.widget.RecyclerView>
+                <LinearLayout
+                    android:id="@+id/lay_filtered"
+                    android:paddingLeft="@dimen/dimen_16dp"
+                    android:paddingRight="@dimen/dimen_16dp"
+                    android:paddingTop="@dimen/dimen_8dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:id="@+id/filtered_categories"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:text="Filter Chat"
+                            android:layout_width="wrap_content"
+                            style="@style/Text.Standard"
+                            android:paddingLeft="@dimen/dimen_16dp"
+                            android:paddingRight="@dimen/dimen_16dp"
+                            android:paddingTop="@dimen/dimen_2dp"
+                            android:paddingBottom="@dimen/dimen_2dp"
+                            android:background="@drawable/filter_filled_header"
+                            android:layout_height="wrap_content"/>
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_filter"
+                            android:layout_width="match_parent"
+                            android:layout_marginLeft="@dimen/space_5"
+                            android:scrollbarAlwaysDrawHorizontalTrack="true"
+                            android:scrollbarSize="2dp"
+                            android:scrollbarStyle="insideInset"
+                            android:scrollbarThumbVertical="@color/black"
+                            android:scrollbars="horizontal"
+                            tools:itemCount="4"
+                            tools:listitem="@layout/adapter_room_filter"
+                            android:orientation="horizontal"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                </LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv"
+                    android:layout_width="match_parent"
+                    tools:listitem="@layout/adapter_chat_rooms"
+                    android:layout_height="match_parent">
+                </androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
             <include layout="@layout/layout_helper"/>
         </RelativeLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

@@ -6,21 +6,24 @@ import java.io.Serializable
 
 data class LabelModel(var label_id : Int = 0,
                       var label_title : String = "",
+                      var is_checked : Boolean = false,
+                      var name : String = "",
                       var label_user_id : String = "",
                       var delete_timestamp : String = "",
                       var label_color : String = "",
                       var is_checklist : Int = 0,
-                      var is_checked : Boolean = false,
                       var count_room : Int = 0,
-                      var room : MutableList<RoomChat> = ArrayList(),
-                      var name : String = ""
-                      ): Serializable {
+                      var room : MutableList<RoomChat> = ArrayList()
+): Serializable {
     companion object {
         val RED = "RED"
         val BLUE = "BLUE"
         val PURPLE = "PURPLE"
         val GREEN = "GREEN"
         val YELLOW = "YELLOW"
+
+        val TEAM = "TEAM"
+        val TASK = "TASK"
 
         val RED_CODE = R.color.red_500
         val BLUE_CODE = R.color.blue_500

@@ -38,6 +38,7 @@ public class ChatroomViewHolder extends RecyclerView.ViewHolder{
     EmphasisTextView title;
 
     EmphasisTextView message;
+    EmphasisTextView tv_label;
 
     TextView time;
 
@@ -69,10 +70,7 @@ public class ChatroomViewHolder extends RecyclerView.ViewHolder{
     String today;
     String labels = "";
     String yesterday;
-
-    LinearLayout lay_label;
-    CardView card_color;
-    EmphasisTextView tv_label;
+//        CardView card_color;
 
     public ChatroomViewHolder(@NonNull View itemView, Context context) {
         super(itemView);
@@ -97,6 +95,7 @@ public class ChatroomViewHolder extends RecyclerView.ViewHolder{
         ChatRoomsUiModel model = data.getChatRoomUiModel();
         adapter.setVisibility(View.VISIBLE);
         loading.setVisibility(View.GONE);
+        tv_label.setText(model.getRoomChat().getRoom_category());
 
         PicassoLoader imageLoader = new PicassoLoader();
         AvatarPlaceholder refreshableAvatarPlaceholder;
@@ -148,25 +147,19 @@ public class ChatroomViewHolder extends RecyclerView.ViewHolder{
     public void bindDatas(ChatRoomsUiModel model) {
         adapter.setVisibility(View.VISIBLE);
         loading.setVisibility(View.GONE);
+        tv_label.setText(model.getRoomChat().getRoom_category());
         PicassoLoader imageLoader = new PicassoLoader();
         AvatarPlaceholder refreshableAvatarPlaceholder = new AvatarPlaceholder(model.getRoomChat().getRoom_name());
         imageLoader.loadImage(avatarView, refreshableAvatarPlaceholder, (model.getRoomChat().getRoom_photo().equals("") ? model.getRoomChat().getRoom_name() : model.getRoomChat().getRoom_photo()));
         title.setText(model.getRoomChat().getRoom_name());
 
-        if(model.getRoomChat().getLabel_id().size() > 0){
-            lay_label.setVisibility(View.GONE);
-            for (int i = 0; i < model.getRoomChat().getLabel_title().size(); i++) {
-
-            }
-            for (int i = 0; i < model.getRoomChat().getLabel_title().size(); i++) {
-                labels += model.getRoomChat().getLabel_title().get(i);
-                if(i < model.getRoomChat().getLabel_title().size()-1)
-                    labels+=", ";
-            }
-            tv_label.setText(labels);
-        } else {
-            lay_label.setVisibility(View.GONE);
+        /*for (int i = 0; i < model.getRoomChat().getLabel_title().size(); i++) {
+            labels += model.getRoomChat().getLabel_title().get(i);
+            if(i < model.getRoomChat().getLabel_title().size()-1)
+                labels+=", ";
         }
+        tv_label.setText(labels);*/
+
 
         switch (model.getRoomChat().getRoom_type()){
             case RoomChat.group_room_type :
@@ -219,6 +212,7 @@ public class ChatroomViewHolder extends RecyclerView.ViewHolder{
 
     private void bindData(ChatRoomsUiModel model){
         message.setText(getHeaderMessage(model, model.getRoomChat().getLast_message()));
+        tv_label.setText(model.getRoomChat().getRoom_category());
         String lastTime = model.getRoomChat().getLast_date();
         card_indicator.setVisibility(View.GONE);
         try {
@@ -327,6 +321,7 @@ public class ChatroomViewHolder extends RecyclerView.ViewHolder{
         avatarView = view.findViewById(R.id.avatarView);
         title = view.findViewById(R.id.title);
         message = view.findViewById(R.id.message);
+        tv_label = view.findViewById(R.id.tv_label);
         time = view.findViewById(R.id.time);
         card_indicator = view.findViewById(R.id.card_indicator);
         iv_group = view.findViewById(R.id.iv_group);
@@ -337,8 +332,7 @@ public class ChatroomViewHolder extends RecyclerView.ViewHolder{
         tint = view.findViewById(R.id.tint);
         img_indicator_attachment = view.findViewById(R.id.img_indicator_attachment);
         img_check = view.findViewById(R.id.img_check);
-        lay_label = view.findViewById(R.id.lay_label);
-        card_color = view.findViewById(R.id.card_color);
+//        card_color = view.findViewById(R.id.card_color);
         tv_label = view.findViewById(R.id.tv_label);
     }
 
