@@ -20,7 +20,7 @@ import com.gamatechno.chato.sdk.data.constant.StringConstant;
 import com.gamatechno.chato.sdk.module.activity.ChatoCoreActivity;
 import com.gamatechno.chato.sdk.utils.ChatoAlertDialog.ChatoAlertDialog;
 import com.gamatechno.ggfw.utils.GGFWUtil;
-import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 
 public class LoginActivity extends ChatoCoreActivity implements LoginView.View {
@@ -142,11 +142,8 @@ public class LoginActivity extends ChatoCoreActivity implements LoginView.View {
 
     @Override
     public void onSucces() {
-        Log.d("LoginActivity", "onSucces: "+FirebaseInstanceId.getInstance().getToken());
-        String token = FirebaseInstanceId.getInstance().getToken();
-        if(token == null){
-            token = FirebaseInstanceId.getInstance().getToken();
-        }
+        String token = FirebaseMessaging.getInstance().getToken().getResult();
+        Log.d("LoginActivity", "onSucces: "+token);
         GGFWUtil.setStringToSP(getContext(), Preferences.FIREBASE_TOKEN, token);
         presenter.updateTokenFirebase(token);
     }

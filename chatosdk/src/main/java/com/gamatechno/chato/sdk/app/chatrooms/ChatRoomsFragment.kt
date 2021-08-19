@@ -25,7 +25,6 @@ import com.gamatechno.chato.sdk.data.constant.StringConstant
 import com.gamatechno.chato.sdk.module.request.GGFWRest
 import com.gamatechno.ggfw.utils.GGFWUtil
 import com.gamatechno.ggfw.utils.RecyclerScroll
-import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_chat_rooms_fragment.*
 import kotlinx.android.synthetic.main.layout_helper.*
 
@@ -316,7 +315,6 @@ class ChatRoomsFragment : Fragment(), ChatRoomsView.View {
 
     override fun onResume() {
         super.onResume()
-        Log.d(TAG, "onResume: " + FirebaseInstanceId.getInstance().token)
         context!!.registerReceiver(receiver, filter)
         obrolanPresenter!!.requestObrolan(true, keyword, filter_adapter.getSortBy())
     }

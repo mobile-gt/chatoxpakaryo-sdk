@@ -2,12 +2,14 @@ package com.gamatechno.chato.sdk.module.service.Firebase;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.gamatechno.chato.sdk.data.constant.Api;
 import com.gamatechno.chato.sdk.module.request.GGFWRest;
 import com.gamatechno.chato.sdk.module.request.RequestInterface;
 import com.gamatechno.chato.sdk.utils.ChatoUtils;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.FirebaseInstanceIdService;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.FirebaseMessagingService;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,15 +17,16 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
+public class FirebaseInstanceIDService extends FirebaseMessagingService {
     int repeat = 0;
 
     @Override
-    public void onTokenRefresh() {
-        Log.d("FirebaseInstance", FirebaseInstanceId.getInstance().getToken());
+    public void onNewToken(@NonNull String s) {
+        super.onNewToken(s);
         repeat = 0;
-//        GGFWUtil.setStringToSP(getContext(), Preferences.FIREBASE_TOKEN, FirebaseInstanceId.getInstance().getToken());
-//        requestTokenRefresh(FirebaseInstanceId.getInstance().getToken(), repeat);
+        /*String token = FirebaseMessaging.getInstance().getToken().getResult();
+        GGFWUtil.setStringToSP(getContext(), Preferences.FIREBASE_TOKEN, token);
+        requestTokenRefresh(token, repeat);*/
     }
 
     public void requestTokenRefresh(String token, int ulang){
